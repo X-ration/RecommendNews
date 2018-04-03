@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author Adam
  * Created at 2018/4/2 10:00.
@@ -27,9 +29,9 @@ public class NewsController {
      * @return 包含10条新闻数据的页面。
      */
     @RequestMapping("/viewNews")
-    public ModelAndView viewNews() {
+    public ModelAndView viewNews(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("viewNews");
-        modelAndView.addObject("newsList",repository.getTenNews());
+        modelAndView.addObject("newsList",repository.getNews(request.getSession().getId()));
         return modelAndView;
     }
 
