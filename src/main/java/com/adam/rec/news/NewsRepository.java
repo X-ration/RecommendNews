@@ -17,20 +17,12 @@ import java.util.*;
 @Repository
 public class NewsRepository {
 
-    private SparkSession sparkSession;
-    private SQLContext sqlContext;
     private final String newsTable = "newsTable";
     private List<News> allNews = new ArrayList<>();
 
     //控制新闻数量
     private static Map<String,Integer> startIndexSession = new HashMap<>();
     private static final int intervalNum = 4;
-
-    @Autowired
-    public NewsRepository(SparkSession sparkSession, SQLContext sqlContext) {
-        this.sparkSession = sparkSession;
-        this.sqlContext = sqlContext;
-    }
 
     /**
      * 初始化新闻仓库（借助Spark SQL查询）。

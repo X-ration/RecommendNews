@@ -1,4 +1,6 @@
 target/
+out/
+.artifacts/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###

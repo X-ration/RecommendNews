@@ -20,7 +20,7 @@ public class News {
         this.title = title;
         this.content = content;
         this.url = url;
-        this.category = NewsUtils.identifyCategory(url);
+        this.category = NewsCategories.identifyCategory(url);
     }
 
     public String getDocno() {

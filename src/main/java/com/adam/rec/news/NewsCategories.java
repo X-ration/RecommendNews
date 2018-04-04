@@ -9,7 +9,7 @@ import java.util.Map;
  * 新闻附加实用方法。
  */
 
-public class NewsUtils {
+public class NewsCategories {
 
     /**
      * 存储新闻分类的Map。
