@@ -30,7 +30,7 @@ object DataFrameManager {
 
   val withDateTime = udf(()=>generateRandomDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
 
-  val withCategory = udf((url:String)=>NewsCategories.identifyCategory(url))
+//  val withCategory = udf((url:String)=>NewsCategories.identifyCategory(url))
 
   val withDefaultCount = (default:Int) => udf(()=>default)
   val withDefaultScore = (default:Double) => udf(()=>default)

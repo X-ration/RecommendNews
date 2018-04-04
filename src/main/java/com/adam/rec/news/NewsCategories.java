@@ -1,5 +1,7 @@
 package com.adam.rec.news;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +11,7 @@ import java.util.Map;
  * 新闻附加实用方法。
  */
 
+@Repository
 public class NewsCategories {
 
     /**
@@ -28,19 +31,10 @@ public class NewsCategories {
         categories.put("business.sohu.com","财经");
         categories.put("yule.sohu.com","娱乐");
         categories.put("s.sohu.com","体育视频");
-    }  //当前：11个分类
+    }
 
-    /**
-     * 根据URL地址，识别新闻分类。
-     * @param url 新闻原始URL
-     * @return 新闻类别
-     */
-    public static String identifyCategory(String url) {
-        String s = url.split("/")[2];
-        for(String key : categories.keySet()){
-            if(url.contains(key)) return categories.get(key);
-        }
-        return "其他";
+    public Map<String,String> getCategories() {
+        return categories;
     }
 
 }

@@ -1,5 +1,7 @@
 package com.adam.rec.news;
 
+import java.time.LocalDateTime;
+
 /**
  * @author Adam
  * Created at 2018/4/2 10:00.
@@ -8,27 +10,34 @@ package com.adam.rec.news;
 
 public class News {
 
-//    private int id;
-    private String docno;
+    private int id;
     private String title;
     private String content;
     private String url;
     private String category;
+    private LocalDateTime publish_time;
+    private int likes;
+    private int dislikes;
+    private double score;
 
-    public News(String docno, String title, String content, String url) {
-        this.docno = docno;
+    public News(int id, String title, String content, String url, String category, LocalDateTime publish_time, int likes, int dislikes, double score) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.url = url;
-        this.category = NewsCategories.identifyCategory(url);
+        this.category = category;
+        this.publish_time = publish_time;
+        this.likes = likes;
+        this.dislikes = dislikes;
+        this.score = score;
     }
 
-    public String getDocno() {
-        return docno;
+    public int getId() {
+        return id;
     }
 
-    public void setDocno(String docno) {
-        this.docno = docno;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -61,5 +70,37 @@ public class News {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public LocalDateTime getPublish_time() {
+        return publish_time;
+    }
+
+    public void setPublish_time(LocalDateTime publish_time) {
+        this.publish_time = publish_time;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public int getDislikes() {
+        return dislikes;
+    }
+
+    public void setDislikes(int dislikes) {
+        this.dislikes = dislikes;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
     }
 }
