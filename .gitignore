@@ -2,6 +2,7 @@ target/
 out/
 .artifacts/
 !.mvn/wrapper/maven-wrapper.jar
+jdbc.properties
 
 ### STS ###
 .apt_generated

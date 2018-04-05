@@ -16,11 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class NewsController {
 
-    private NewsService newsService;
+    private NewsServiceSpark newsServiceSpark;
+    private NewsServiceJdbc newsServiceJdbc;
 
     @Autowired
-    public NewsController(NewsService newsService) {
-        this.newsService = newsService;
+    public NewsController(NewsServiceSpark newsServiceSpark, NewsServiceJdbc newsServiceJdbc) {
+        this.newsServiceSpark = newsServiceSpark;
+        this.newsServiceJdbc = newsServiceJdbc;
     }
 
     /**
@@ -30,7 +32,7 @@ public class NewsController {
     @RequestMapping("/viewNews")
     public ModelAndView viewNews(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("viewNews");
-        modelAndView.addObject("newsList",newsService.getNewsListTenDynamic());
+        modelAndView.addObject("newsList",newsServiceJdbc.getNewsListWindow());
         return modelAndView;
     }
 
