@@ -38,7 +38,7 @@ public class NewsServiceJdbc extends NewsService {
     List<News> getNewsListByIdRange(int startIndex, int endIndex){
         List<News> newsList = null;
         try {
-            ResultSet resultSet = jdbcUtil.executeQuery("SELECT * FROM news WHERE news_id>=" + startIndex + " AND news_id<=" + endIndex);
+            ResultSet resultSet = jdbcUtil.executeQuery("SELECT * FROM news WHERE news_id>=" + startIndex + " AND news_id<" + endIndex);
             newsList = new ArrayList<>();
             while(resultSet.next()) {
                 newsList.add(new News(resultSet.getInt(1),resultSet.getString(2),

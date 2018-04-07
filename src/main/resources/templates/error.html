@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+<head>
     <meta charset="UTF-8"/>
     <title th:text="|Error ${status}|">Error page</title>
-    <link href="/css/materialize.css"
-          type="text/css" rel="stylesheet" media="screen,projection" />
 </head>
 <body>
 
-<div class="row">
+<div class="row" layout:fragment="content">
     <h1 class="center teal lighten-2 white-text" th:text="|Error ${status}|">Error</h1>
     <p class="col s12 center" th:text="|您所请求的页面找不到了······T_T|">
         The page is not available.

@@ -37,7 +37,7 @@ public class NewsServiceSpark extends NewsService{
         }
         else {
             Dataset<Row> dataset = sparkManager.executeQuery("SELECT * FROM " + SparkManager.NEWS_SOHU_TABLE
-                    + " WHERE news_id>=" + startIndex + " AND news_id<=" + endIndex);
+                    + " WHERE news_id>=" + startIndex + " AND news_id<" + endIndex);
             List<News> result = dataset.collectAsList()
             .stream()
             .map(row -> new News(row.getInt(3),row.getString(1),

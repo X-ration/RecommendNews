@@ -36,7 +36,7 @@ public class NewsController {
      */
     @RequestMapping("/viewNews")
     public ModelAndView viewNews(HttpServletRequest request) {
-        ModelAndView modelAndView = new ModelAndView("viewNews");
+        ModelAndView modelAndView = new ModelAndView("news/viewNews");
         modelAndView.addObject("newsList",newsServiceJdbc.getNewsListWindow());
         return modelAndView;
     }
