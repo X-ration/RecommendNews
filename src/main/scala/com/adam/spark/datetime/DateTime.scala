@@ -9,7 +9,7 @@ object DateTime {
 
     val now = LocalDateTime.now
     println(now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
-    val other = LocalDateTime.of(2017,1,3,13,53,9);
+    val other = LocalDateTime.of(2017,1,3,13,53,9)
     println(other.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
 
   }

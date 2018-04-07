@@ -23,6 +23,11 @@ public class NewsController {
     public NewsController(NewsServiceSpark newsServiceSpark, NewsServiceJdbc newsServiceJdbc) {
         this.newsServiceSpark = newsServiceSpark;
         this.newsServiceJdbc = newsServiceJdbc;
+        try {
+            //this.newsServiceJdbc.writeNewsList(newsServiceSpark.getNewsListByIdRange(1,1000));  //将使用Spark SQL查询得到的ID小于1000的写入Oracle数据库
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
