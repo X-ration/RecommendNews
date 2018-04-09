@@ -62,4 +62,9 @@ public class NewsServiceSpark extends NewsService{
         return null;
     }
 
+    @Override
+    News getNewsById(int newsId) {
+        return null;
+    }
+
 }

@@ -12,6 +12,7 @@ public class News {
 
     private int id;
     private String title;
+    private String newsAbstract;
     private String content;
     private String url;
     private String category;
@@ -30,6 +31,7 @@ public class News {
         this.likes = likes;
         this.dislikes = dislikes;
         this.score = score;
+        this.newsAbstract = (content.length()>100)?content.substring(0,100)+"⋯⋯":content;
     }
 
     public int getId() {
@@ -102,5 +104,13 @@ public class News {
 
     public void setScore(double score) {
         this.score = score;
+    }
+
+    public String getNewsAbstract() {
+        return newsAbstract;
+    }
+
+    public void setNewsAbstract(String newsAbstract) {
+        this.newsAbstract = newsAbstract;
     }
 }

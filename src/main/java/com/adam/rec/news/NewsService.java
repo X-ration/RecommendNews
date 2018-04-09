@@ -18,6 +18,7 @@ public abstract class NewsService {
     abstract List<News> getNewsListByIdRange(int startIndex, int endIndex);
     abstract List<News> getNewsListWindow();
     abstract Boolean writeNewsList(List<News> newsList) throws Exception;
+    abstract News getNewsById(int newsId);
 
     /**
      * 根据URL地址，识别新闻分类。

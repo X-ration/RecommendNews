@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+<head>
+    <title>View News</title>
+</head>
+<body>
+
+<div class="row" layout:fragment="content">
+
+    <!--Breadcrumb-->
+    <div class="row container">
+        <nav>
+            <div class="nav-wrapper">
+                <div class="col s12">
+                    <a href="/" class="breadcrumb">首页</a>
+                    <a class="breadcrumb">新闻详情</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="row container">
+        <div class="col s12" th:object="${news}">
+            <div class="card indigo darken-2">
+                <div class="card-content white-text">
+                    <span class="card-title" th:text="|[${news.category}] ${news.title}|">Card Title</span>
+                    <p th:text="${news.content}">Card Description</p>
+                </div>
+                <div class="card-action">
+                    <a th:href="${news.url}">阅读原文</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

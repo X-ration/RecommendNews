@@ -52,9 +52,8 @@ public class NewsServiceJdbc extends NewsService {
         } catch (NullPointerException e) {
             e.printStackTrace();
             System.out.println("查询为空");
-        } finally {
-            return newsList;
         }
+        return newsList;
     }
 
     @Override
@@ -81,5 +80,26 @@ public class NewsServiceJdbc extends NewsService {
         }
         int[] result = jdbcUtil.batchOperationsExecutePrepared();
         return ArrayUtils.contains(result,Statement.EXECUTE_FAILED);
+    }
+
+    @Override
+    News getNewsById(int newsId) {
+        News news = null;
+        try {
+            ResultSet resultSet = jdbcUtil.executeQuery("SELECT * FROM news WHERE news_id=" + newsId);
+            if (resultSet.next()) {
+                news = new News(resultSet.getInt(1),resultSet.getString(2),
+                        resultSet.getString(3),resultSet.getString(4),
+                        resultSet.getString(5), LocalDateTime.parse(resultSet.getString(6),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                        resultSet.getInt(7),resultSet.getInt(8),resultSet.getDouble(9)
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            System.out.println("查询为空");
+        }
+        return news;
     }
 }
