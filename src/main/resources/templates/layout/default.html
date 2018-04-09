@@ -14,12 +14,67 @@ scale=1, maximum-scale=1.0, user-scalable=no"/>
 </head>
 <body>
 
+<nav class="light-blue nav-extended">
+    <div class="row">
+        <div class="nav-wrapper">
+            <div class="container">
+                <a href="/" class="brand-logo">News WebSite</a>
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul id="nav-mobile" class="col s6 offset-s8 hide-on-med-and-down center">
+                    <li><a href="#"><i class="material-icons left">fiber_new</i>Latest</a></li>
+                    <li><a href="#"><i class="material-icons left">list</i>Recommend</a></li>
+                    <li><a href="#"><i class="material-icons left">person</i>Profile</a></li>
+                </ul>
+                <!--Side nav bar content-->
+                <ul class="side-nav" id="mobile-demo">
+                    <li><div class="user-view">
+                        <div class="background">
+                            <img src="/images/wave.jpg"/>
+                        </div>
+                        <a href="#"><img class="circle" src="/images/profile.jpg"/></a>
+                        <a href="#"><span class="white-text name">Frank Adam</span></a>
+                        <a href="#"><span class="white-text email">user@email.com</span></a>
+                    </div></li>
+                    <li><a href="#"><i class="material-icons left">fiber_new</i>Latest</a></li>
+                    <li><a href="#"><i class="material-icons left">list</i>Recommend</a></li>
+                    <li><a href="#"><i class="material-icons left">person</i>Profile</a></li>
+                    <li><div class="divider"></div> </li>
+                    <li>
+                        <a href="#"><i class="material-icons left">exit_to_app</i>Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
 <section layout:fragment="content">
     <p>Page content goes here</p>
 </section>
 
+<footer class="page-footer">
+    <div class="row container">
+        <h6 class="white-text center-align">Welcome to News Website project.</h6>
+    </div>
+
+    <div class="footer-copyright">
+        <div class="row">
+            <div>
+                © 2018 Copyright Frank Adam.
+            </div>
+        </div>
+    </div>
+</footer>
+
 <script type="text/javascript" src="/webjars/jquery/2.1.4/jquery.js"></script>
 <script type="text/javascript" src="/js/materialize.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $(".button-collapse").sideNav();
+    })
+
+</script>
 <script type="text/javascript" layout:fragment="script">
 </script>
 </body>

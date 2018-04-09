@@ -8,8 +8,43 @@
 <body>
 
 <div class="row" layout:fragment="content">
-    <h2 class="indigo-text">Hello, welcome to Spring Boot.</h2>
+    <div class="container">
+    <div class="carousel carousel-slider center">
+        <div class="carousel-item red white-text">
+            <a href="#" class="red white-text"><h2>两头梅花鹿冲上马路被撞死 山东蓝翔：我们养的</h2></a>
+            <!--<p>原标题：蓝翔的“迷”鹿</p>-->
+            <!--<p>昨天凌晨，张先生在济南市新沙路和清河北路路口看到有两头梅花鹿沿着马路往南跑，怕出意外，张先生报了警。昨天凌晨5点左右，其中一头梅花鹿在济齐路与粟山路交叉路口处和一辆摩托车相撞后死亡。</p>-->
+            <!--<p>据了解，两头梅花鹿是山东蓝翔技师学院饲养的。但是，记者从山东省林业厅了解到，蓝翔并没有取得人工繁衍野生保护动物的许可证。见习记者侯宝之</p>-->
+        </div>
+        <div class="carousel-item green white-text">
+            <a href="#" class="green white-text"><h2>抱错乐视大腿，这家公司巨亏4.7亿，但噩梦还没结束</h2></a>
+            <!--<p>乐视网控股子公司——新乐视智家电子科技（天津）有限公司（以下简称新乐视智家），让毅昌股份（002420，SZ）吃尽了苦头。</p>-->
+            <!--<p>新乐视智家是毅昌股份2016年开发的客户。毅昌股份对乐视这条“大腿”可谓忠贞不渝，在新乐视智家拖欠巨额销售款后，仍然坚持为对方供货，直到最终以债转股的方式无奈地增资成为新乐视智家的第八大股东。</p>-->
+        </div>
+        <div class="carousel-item blue white-text">
+            <a href="#" class="blue white-text"><h2>路透：作证前一天 扎克伯格将先会见美国会议员</h2></a>
+            <!--<p>凤凰网科技讯据 路透社北京时间4月9日报道，两位国会议员助手称，Facebook CEO马克·扎克伯格(Mark Zuckerberg)将在周一与部分美国国会议员举行会谈，也就是在他到国会就数据泄露事件作证的前一天。</p>-->
+            <!--<p>这两位助手称，这次会谈计划在国会山举行，预计将一直持续到周一下午，与会人员包括扎克伯格将在其面前作证的部分国会委员会议员。扎克伯格计划于周二在美国参议院司法和商务委员会作证，周三在众议院能源和商务委员会作证。</p>-->
+        </div>
+    </div>
+    </div>
 </div>
+
+<script type="text/javascript" layout:fragment="script">
+    function slider() {
+        $('.carousel.carousel-slider').carousel({
+            fullWidth: true,
+            duration: 200,
+            noWrap: true,
+            indicators: true
+        });
+    }
+    $(document).ready(function () {
+
+        slider();
+        var instance = M.Carousel.getInstance(elem);
+    })
+</script>
 
 </body>
 </html>
