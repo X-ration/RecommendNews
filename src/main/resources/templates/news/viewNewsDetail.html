@@ -26,16 +26,137 @@
             <div class="card indigo darken-2">
                 <div class="card-content white-text">
                     <span class="card-title" th:text="|[${news.category}] ${news.title}|">Card Title</span>
-                    <p th:text="${news.content}">Card Description</p>
+                    <br/>
+                    <div class="row">
+                        <p th:text="${news.content}">Card Description</p>
+                    </div>
                 </div>
                 <div class="card-action">
                     <a th:href="${news.url}">阅读原文</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="row">
+                    <a id="fav" class="col s1 blue-text text-lighten-1" style="cursor: pointer; margin-left: 2%;" onclick="fav()"><i class="material-icons left">thumb_up</i></a>
+                    <a id="unfav" class="col s1 blue-text text-lighten-1" style="cursor: pointer; margin-right: 2%;" onclick="unfav()"><i class="material-icons left">thumb_down</i></a>
+                    <div class="col s9">
+                        <div class="row">
+                            <a id="star0" class="col s1" style="cursor: pointer;" onclick="star0()"><i id="star0ic" class="material-icons left">star_border</i></a>
+                            <a id="star1" class="col s1" style="cursor: pointer;" onclick="star1()"><i id="star1ic" class="material-icons left">star_border</i></a>
+                            <a id="star2" class="col s1" style="cursor: pointer;" onclick="star2()"><i id="star2ic" class="material-icons left">star_border</i></a>
+                            <a id="star3" class="col s1" style="cursor: pointer;" onclick="star3()"><i id="star3ic" class="material-icons left">star_border</i></a>
+                            <a id="star4" class="col s1" style="cursor: pointer;" onclick="star4()"><i id="star4ic" class="material-icons left">star_border</i></a>
+                            <span class="col s6 right">0人评价</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
 </div>
+
+<script type="text/javascript" layout:fragment="script">
+    <!--未点击-light   点击-dark-->
+    function fav() {
+        if ($('#fav').attr("class") === 'col s1 blue-text text-darken-2'){
+            $('#fav').attr("class", "col s1 blue-text text-lighten-1");
+        } else {
+            $('#fav').attr("class", "col s1 blue-text text-darken-2");
+            $('#unfav').attr("class", "col s1 blue-text text-lighten-1");
+        }
+    }
+    function unfav() {
+        if ($('#unfav').attr("class")==='col s1 blue-text text-darken-2'){
+            $('#unfav').attr("class", "col s1 blue-text text-lighten-1");
+        } else {
+            $('#unfav').attr("class", "col s1 blue-text text-darken-2");
+            $('#fav').attr("class", "col s1 blue-text text-lighten-1");
+        }
+    }
+    function mkstar(ic,e) {
+        ic.text("star");
+        e.attr("class","col s1 blue-text text-darken-2");
+    }
+    function unstar(ic,e) {
+        ic.text("star_border");
+        e.attr("class","col s1 blue-text text-lighten-1");
+    }
+
+    var $star0ic = $('#star0ic'); var $star0 = $('#star0');
+    var $star1ic = $('#star1ic'); var $star1 = $('#star1');
+    var $star2ic = $('#star2ic'); var $star2 = $('#star2');
+    var $star3ic = $('#star3ic'); var $star3 = $('#star3');
+    var $star4ic = $('#star4ic'); var $star4 = $('#star4');
+    var curLoc = -1;
+
+    function star0() {
+        if ($star0ic.text() === 'star_border') {
+            mkstar($star0ic,$star0);
+            curLoc = 0;
+        } else if (curLoc === 0) {
+            unstar($star0ic,$star0);
+            curLoc = -1;
+        }
+    }
+    function star1() {
+        if ($star1ic.text() === 'star_border') {
+            mkstar($star0ic,$star0);
+            mkstar($star1ic,$star1);
+            curLoc = 1;
+        } else if (curLoc === 1) {
+            unstar($star0ic, $star0);
+            unstar($star1ic, $star1);
+            curLoc = -1;
+        }
+    }
+    function star2() {
+        if ($star2ic.text() === 'star_border') {
+            mkstar($star0ic,$star0);
+            mkstar($star1ic,$star1);
+            mkstar($star2ic,$star2);
+            curLoc = 2;
+        } else if (curLoc === 2) {
+            unstar($star0ic, $star0);
+            unstar($star1ic, $star1);
+            unstar($star2ic, $star2);
+            curLoc = -1;
+        }
+    }
+    function star3() {
+        if ($star3ic.text() === 'star_border') {
+            mkstar($star0ic, $star0);
+            mkstar($star1ic, $star1);
+            mkstar($star2ic, $star2);
+            mkstar($star3ic, $star3);
+            curLoc = 3;
+        } else if (curLoc === 3) {
+            unstar($star0ic, $star0);
+            unstar($star1ic, $star1);
+            unstar($star2ic, $star2);
+            unstar($star3ic, $star3);
+            curLoc = -1;
+        }
+    }
+    function star4() {
+        if ($star4ic.text() === 'star_border') {
+            mkstar($star0ic,$star0);
+            mkstar($star1ic,$star1);
+            mkstar($star2ic,$star2);
+            mkstar($star3ic,$star3);
+            mkstar($star4ic,$star4);
+            curLoc = 4;
+        } else if (curLoc === 4) {
+            unstar($star0ic, $star0);
+            unstar($star1ic, $star1);
+            unstar($star2ic, $star2);
+            unstar($star3ic, $star3);
+            unstar($star4ic, $star4);
+            curLoc = -1;
+        }
+    }
+
+</script>
 
 </body>
 </html>
