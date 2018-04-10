@@ -1,7 +1,9 @@
 package com.adam.rec.news;
 
+import com.adam.rec.user_news.Evaluation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,6 +51,17 @@ public class NewsController {
         ModelAndView modelAndView = new ModelAndView("news/viewNewsDetail");
         modelAndView.addObject("news",newsServiceJdbc.getNewsById(newsId));
         return modelAndView;
+    }
+
+    @ModelAttribute
+    public Evaluation getEvaluation() {
+        return new Evaluation();
+    }
+
+    @RequestMapping(value = "/viewNews/{newsId}/evaluation", params = "submitEvaluation", method = RequestMethod.POST)
+    public String newEvaluation(Evaluation evaluation, @PathVariable int newsId) {
+        System.out.println("" + newsId + evaluation);
+        return "redirect:/viewNews/"+newsId;
     }
 
 }
