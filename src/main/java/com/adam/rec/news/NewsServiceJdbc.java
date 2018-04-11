@@ -31,7 +31,7 @@ public class NewsServiceJdbc extends NewsService {
     public NewsServiceJdbc(NewsCategories newsCategories,int windowInterval,JdbcUtil jdbcUtil) {
         super(newsCategories,windowInterval);
         this.jdbcUtil = jdbcUtil;
-        jdbcUtil.initAll();
+        //jdbcUtil.initAll();
     }
 
     @Override

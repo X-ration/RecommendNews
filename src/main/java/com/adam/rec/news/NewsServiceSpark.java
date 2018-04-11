@@ -26,7 +26,6 @@ public class NewsServiceSpark extends NewsService{
     public NewsServiceSpark(NewsCategories newsCategories,int windowInterval,SparkManager sparkManager){
         super(newsCategories,windowInterval);
         this.sparkManager = sparkManager;
-        sparkManager.initTable(SparkManager.NEWS_SOHU_LOCATION,SparkManager.NEWS_SOHU_TABLE);
     }
 
     public List<News> getNewsListByIdRange(int startIndex,int endIndex) {

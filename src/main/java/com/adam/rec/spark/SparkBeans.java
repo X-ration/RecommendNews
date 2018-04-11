@@ -2,7 +2,9 @@ package com.adam.rec.spark;
 
 import org.apache.spark.sql.SQLContext;
 import org.apache.spark.sql.SparkSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,10 +13,8 @@ import org.springframework.stereotype.Component;
  * Spark相关Bean配置。
  */
 
-@Component
+@Configuration
 public class SparkBeans {
-
-    private SparkSession sparkSession = null;
 
     @Bean
     public SparkSession sparkSession() {
@@ -23,16 +23,21 @@ public class SparkBeans {
                 .master("local[*]")
                 .getOrCreate();
         sparkSession.conf().set("spark.driver.memory","10g");
-        this.sparkSession = sparkSession;
         return sparkSession;
     }
 
     @Bean
-    public SQLContext sqlContext() {
-        if(sparkSession != null) {
-            return sparkSession.sqlContext();
-        }
-        return null;
+    @Autowired
+    public SQLContext sqlContext(SparkSession sparkSession) {
+        return sparkSession.sqlContext();
+    }
+
+    @Bean
+    @Autowired
+    public SparkManager sparkManager(SparkSession sparkSession, SQLContext sqlContext) {
+        SparkManager sparkManager = new SparkManager(sparkSession,sqlContext);
+        sparkManager.initTable(SparkManager.NEWS_SOHU_LOCATION,SparkManager.NEWS_SOHU_TABLE);
+        return sparkManager;
     }
 
 }

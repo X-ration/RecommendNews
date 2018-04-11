@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
  * Created at 2018/4/3 21:09.
  */
 
-@Component
 public class SparkManager {
 
     private SparkSession sparkSession;
@@ -21,7 +20,6 @@ public class SparkManager {
     public static final String NEWS_SOHU_LOCATION = "hdfs://172.17.11.180:9000/data/rec_news/news/news_sohu.parquet";
     public static final String NEWS_SOHU_TABLE = "news_sohu";
 
-    @Autowired
     public SparkManager(SparkSession sparkSession, SQLContext sqlContext) {
         this.sparkSession = sparkSession;
         this.sqlContext = sqlContext;
