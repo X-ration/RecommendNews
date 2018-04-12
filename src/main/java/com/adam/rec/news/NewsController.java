@@ -2,10 +2,12 @@ package com.adam.rec.news;
 
 import com.adam.rec.news.page.PagePaginationBuilder;
 import com.adam.rec.user_news.Evaluation;
+import com.adam.rec.user_news.EvaluationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Path;
@@ -60,8 +62,13 @@ public class NewsController {
     }
 
     @RequestMapping(value = "/viewNews/{newsId}/evaluation", params = "submitEvaluation", method = RequestMethod.POST)
-    public String newEvaluation(Evaluation evaluation, @PathVariable int newsId) {
+    public String newEvaluation(Evaluation evaluation, @PathVariable int newsId, RedirectAttributes redirectAttributes) {
         System.out.println("" + newsId + evaluation);
+        if(!EvaluationUtil.isValid(evaluation)){
+            redirectAttributes.addFlashAttribute("error",EvaluationUtil.whyInvalid(evaluation));
+        } else {
+            redirectAttributes.addFlashAttribute("error","感谢您的评价！");
+        }
         return "redirect:/viewNews/"+newsId;
     }
 
