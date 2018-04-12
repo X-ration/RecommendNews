@@ -64,6 +64,11 @@ public class NewsServiceJdbc extends NewsService {
     }
 
     @Override
+    List<News> getNewsListPage(int page) {
+        return getNewsListByIdRange(10*page-9,10*page+1);
+    }
+
+    @Override
     Boolean writeNewsList(List<News> newsList) throws Exception {
         PreparedStatement preparedStatement = jdbcUtil.createPreparedStatement("INSERT INTO news values(?,?,?,?,?,?,?,?,?)");
         for(News news:newsList) {
@@ -72,7 +77,7 @@ public class NewsServiceJdbc extends NewsService {
             preparedStatement.setString(3,news.getContent());
             preparedStatement.setString(4,news.getUrl());
             preparedStatement.setString(5,news.getCategory());
-            preparedStatement.setString(6,news.getPublish_time().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+            preparedStatement.setString(6,news.getPublish_time());
             preparedStatement.setInt(7,news.getLikes());
             preparedStatement.setInt(8,news.getDislikes());
             preparedStatement.setDouble(9,news.getScore());

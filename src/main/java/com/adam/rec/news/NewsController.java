@@ -1,12 +1,10 @@
 package com.adam.rec.news;
 
+import com.adam.rec.news.page.PagePaginationBuilder;
 import com.adam.rec.user_news.Evaluation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,9 +38,12 @@ public class NewsController {
      * @return 包含10条新闻数据的页面。
      */
     @RequestMapping(value = "/viewNews", method = RequestMethod.GET)
-    public ModelAndView viewNews(HttpServletRequest request) {
+    public ModelAndView viewNews(@RequestParam(defaultValue = "1") int page) {
         ModelAndView modelAndView = new ModelAndView("news/viewNewsList");
-        modelAndView.addObject("newsList",newsServiceJdbc.getNewsListWindow());
+        modelAndView.addObject("newsList",newsServiceJdbc.getNewsListPage(page));
+        modelAndView.addObject("curPage",page);
+        modelAndView.addObject("pagination",new PagePaginationBuilder(page).build());
+        modelAndView.addObject("maxPage",PagePaginationBuilder.maxPage);
         return modelAndView;
     }
 

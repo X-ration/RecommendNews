@@ -1,6 +1,7 @@
 package com.adam.rec.news;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author Adam
@@ -74,8 +75,8 @@ public class News {
         this.category = category;
     }
 
-    public LocalDateTime getPublish_time() {
-        return publish_time;
+    public String getPublish_time() {
+        return publish_time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
     public void setPublish_time(LocalDateTime publish_time) {

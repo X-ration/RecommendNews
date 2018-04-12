@@ -31,7 +31,7 @@ public class NewsServiceSpark extends NewsService{
     public List<News> getNewsListByIdRange(int startIndex,int endIndex) {
         if(startIndex >= endIndex){
             return null;
-        } else if(startIndex < 1) {
+        } else if(startIndex < 1 || endIndex < 1) {
             return null;
         }
         else {
@@ -54,6 +54,11 @@ public class NewsServiceSpark extends NewsService{
         List<News> result = getNewsListByIdRange(startIndex, startIndex + windowInterval);
         startIndex = startIndex + windowInterval;
         return result;
+    }
+
+    @Override
+    List<News> getNewsListPage(int page) {
+        return getNewsListByIdRange(10*page-9,10*page+1);
     }
 
     @Override

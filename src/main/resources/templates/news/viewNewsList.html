@@ -35,6 +35,26 @@
         </div>
     </div>
 
+    <ul class="pagination center" th:object="${pagination}">
+        <li class="active"><a th:href="'/viewNews'"><i class="material-icons">skip_previous</i></a></li>
+        <li th:if="${pagination.hasPrevious}" class="active"><a th:href="'/viewNews?page='+${pagination.previousPage}"><i class="material-icons">navigate_before</i></a></li>
+        <li th:if="${!pagination.hasPrevious}" class="disabled"><a><i class="material-icons">navigate_before</i></a></li>
+        <!--<li class="active"><a th:href="'/viewNews?page='+(${curPage}-1)"><i class="material-icons">chevron_left</i></a></li>-->
+        <li th:each="prevPage : ${pagination.previousPages}" class="waves-effect"><a th:href="'/viewNews?page='+${prevPage}" th:text="${prevPage}"></a></li>
+        <li class="active"><a th:text="${pagination.currentPage}"></a></li>
+        <li th:each="nextPage : ${pagination.nextPages}" class="waves-effect"><a th:href="'/viewNews?page='+${nextPage}" th:text="${nextPage}"></a></li>
+
+        <li th:if="${pagination.hasNext}" class="active"><a th:href="'/viewNews?page='+${pagination.nextPage}"><i class="material-icons">navigate_next</i></a></li>
+        <li th:if="${!pagination.hasNext}" class="disabled"><a><i class="material-icons">navigate_next</i></a></li>
+        <li class="active"><a th:href="'/viewNews?page='+${maxPage}"><i class="material-icons">skip_next</i></a></li>
+        <!--<li class="active"><a href="#!">1</a></li>-->
+        <!--<li class="waves-effect"><a href="#!">2</a></li>-->
+        <!--<li class="waves-effect"><a href="#!">3</a></li>-->
+        <!--<li class="waves-effect"><a href="#!">4</a></li>-->
+        <!--<li class="waves-effect"><a href="#!">5</a></li>-->
+        <!--<li class="waves-effect"><a th:href="'/viewNews?page='+(${curPage}+1)"><i class="material-icons">chevron_right</i></a></li>-->
+    </ul>
+
 </div>
 
 </body>

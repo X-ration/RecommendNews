@@ -27,7 +27,8 @@
             <div class="card indigo darken-2">
                 <div class="card-content white-text">
                     <span class="card-title" th:text="|[${news.category}] ${news.title}|">Card Title</span>
-                    <br/>
+                    <span th:text="${news.publish_time}">time</span>
+                    <br/><br/>
                     <div class="row">
                         <p th:text="${news.content}">Card Description</p>
                     </div>
