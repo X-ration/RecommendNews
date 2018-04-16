@@ -14,39 +14,38 @@ scale=1, maximum-scale=1.0, user-scalable=no"/>
 </head>
 <body>
 
-<nav class="light-blue nav-extended">
-    <div class="row">
+<div id="navBar" class="row">
+    <nav class="light-blue nav-extended">
         <div class="nav-wrapper">
             <div class="container">
-                <a href="/" class="brand-logo">新闻网</a>
-                <a data-activates="mobile-demo" class="button-collapse" style="cursor: pointer; "><i class="material-icons">menu</i></a>
-                <ul id="nav-mobile" class="col s6 offset-s8 hide-on-med-and-down center">
+                <a href="#!" class="brand-logo">新闻网</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
                     <li><a href="/viewNews"><i class="material-icons left">fiber_new</i>最新</a></li>
                     <li><a href="/signup"><i class="material-icons left">list</i>推荐</a></li>
                     <li><a href="/signup"><i class="material-icons left">person</i>资料</a></li>
-                </ul>
-                <!--Side nav bar content-->
-                <ul class="side-nav" id="mobile-demo">
-                    <li><div class="user-view">
-                        <div class="background">
-                            <img src="/images/wave.jpg"/>
-                        </div>
-                        <a href="/signup"><img class="circle" src="/images/profile.jpg"/></a>
-                        <a><span class="white-text name">Adam</span></a>
-                        <a><span class="white-text email">user@email.com</span></a>
-                    </div></li>
-                    <li><a href="/viewNews"><i class="material-icons left">fiber_new</i>最新</a></li>
-                    <li><a href="/signup"><i class="material-icons left">list</i>推荐</a></li>
-                    <li><a href="/signup"><i class="material-icons left">person</i>资料</a></li>
-                    <li><div class="divider"></div> </li>
-                    <li>
-                        <a href="#"><i class="material-icons left">exit_to_app</i>注销</a>
-                    </li>
                 </ul>
             </div>
         </div>
-    </div>
-</nav>
+
+        <!-- Side nav bar content -->
+        <ul class="sidenav" id="mobile-demo">
+            <li>
+                <div class="user-view">
+                    <div class="background">
+                        <img src="/images/wave.jpg"/>
+                    </div>
+                    <a href="/signup"><img class="circle" src="/images/profile.jpg"/></a>
+                    <a><span class="white-text name">Adam</span></a>
+                    <a><span class="white-text email">user@email.com</span></a>
+                </div>
+            </li>
+            <li><a href="/viewNews"><i class="material-icons left">fiber_new</i>最新</a></li>
+            <li><a href="/signup"><i class="material-icons left">list</i>推荐</a></li>
+            <li><a href="/signup"><i class="material-icons left">person</i>资料</a></li>
+        </ul>
+    </nav>
+</div>
 
 <section layout:fragment="content">
     <p>Page content goes here</p>
@@ -71,7 +70,7 @@ scale=1, maximum-scale=1.0, user-scalable=no"/>
 <script type="text/javascript">
 
     $(document).ready(function () {
-        $(".button-collapse").sideNav();
+        $('.sidenav').sidenav();
     })
 
 </script>

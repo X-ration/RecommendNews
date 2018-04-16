@@ -34,51 +34,51 @@
             <div class="row">
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">person</i>
-                    <input th:field="${userForm.name}" id="userName" type="text" required="required"/>
+                    <input class="validate" th:field="${userForm.name}" id="userName" type="text" required="required"/>
                     <label for="userName">用户名</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12 m6">
-                    <i class="material-icons prefix">person</i>
-                    <input th:field="${userForm.password}" id="password" type="password" required="required"/>
+                    <i class="material-icons prefix">lock</i>
+                    <input class="validate" th:field="${userForm.password}" id="password" type="password" required="required"/>
                     <label for="password">密码</label>
                 </div>
                 <div class="input-field col s12 m6">
-                    <i class="material-icons prefix">person</i>
-                    <input th:field="${userForm.confirmPassword}" id="confirmPassword" type="password" required="required"/>
+                    <i class="material-icons prefix">lock</i>
+                    <input class="validate" th:field="${userForm.confirmPassword}" id="confirmPassword" type="password" required="required"/>
                     <label for="confirmPassword">确认密码</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12 m6">
-                    <i class="material-icons prefix">person</i>
+                    <i class="material-icons prefix">sentiment_very_satisfied</i>
                     <input class="validate" th:field="${userForm.sex}" placeholder="男/女" id="sex" type="text" required="required"/>
                     <label for="sex">性别</label>
                 </div>
                 <div class="input-field col s12 m6">
-                    <i class="material-icons prefix">person</i>
-                    <input th:field="${userForm.birthDate}" id="birthDate" type="text" required="required" placeholder="yyyy-MM-dd" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"/>
+                    <i class="material-icons prefix">date_range</i>
+                    <input id="birthDate" type="text" th:field="${userForm.birthDate}" class="datepicker"/>
                     <label for="birthDate">出生日期</label>
                 </div>
 
             </div>
             <div class="row">
                 <div class="input-field col s12 m6">
-                    <i class="material-icons prefix">person</i>
-                    <input th:field="${userForm.profession}" id="profession" type="text" required="required"/>
+                    <i class="material-icons prefix">work</i>
+                    <input class="validate" th:field="${userForm.profession}" id="profession" type="text" required="required"/>
                     <label for="profession">职业</label>
                 </div>
                 <div class="input-field col s12 m6">
-                    <i class="material-icons prefix">person</i>
-                    <input th:field="${userForm.area}" id="area" type="text" required="required"/>
+                    <i class="material-icons prefix">location_city</i>
+                    <input class="validate" th:field="${userForm.area}" id="area" type="text" required="required"/>
                     <label for="area">地区</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12 m6">
-                    <i class="material-icons prefix">person</i>
-                    <input th:field="${userForm.interests}" id="interests" placeholder="以英文,分隔" type="text" required="required" pattern="(.*,)*"/>
+                    <i class="material-icons prefix">stars</i>
+                    <input class="validate" th:field="${userForm.interests}" id="interests" placeholder="以英文,分隔" type="text" required="required" pattern="(.*,)*"/>
                     <label for="interests">兴趣</label>
                 </div>
             </div>
@@ -93,7 +93,21 @@
 
 <script layout:fragment="script">
     $(document).ready(function(){
-        $('.chips').chips();
+        $('.datepicker').datepicker({
+            yearRange:100,
+            format:'yyyy-mm-dd',
+            maxDate:new Date(),
+            defaultDate:new Date(),
+            setDefaultDate:true,
+            i18n:{
+                cancel:'取消',
+                done:'确定',
+                months:['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+                monthsShort:['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+                weekdaysShort:['周日','周一','周二','周三','周四','周五','周六'],
+                weekdaysAbbrev:['日','一','二','三','四','五','六']
+            }
+        });
     });
 </script>
 </body>
