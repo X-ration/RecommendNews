@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import spire.algebra.Bool;
 
 /**
  * @author adam
@@ -16,10 +15,12 @@ import spire.algebra.Bool;
 public class UserController {
 
     private UserService userServiceJdbc;
+    private UserSession userSession;
 
     @Autowired
-    public UserController(UserServiceJdbc userServiceJdbc) {
+    public UserController(UserServiceJdbc userServiceJdbc, UserSession userSession) {
         this.userServiceJdbc = userServiceJdbc;
+        this.userSession = userSession;
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
@@ -32,6 +33,8 @@ public class UserController {
         Boolean result = userServiceJdbc.checkUser(loginForm.getUsername(),loginForm.getPassword());
         if(result){
             System.out.println("用户"+loginForm.getUsername()+"登陆成功");
+            userSession.saveUserSession(userServiceJdbc.getUserByName(loginForm.getUsername()));
+            System.out.println(userSession.getUserSession());
             return "redirect:/";
         } else {
             System.out.println("用户"+loginForm.getUsername()+"登录失败");

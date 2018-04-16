@@ -9,5 +9,6 @@ public abstract class UserService {
     abstract int getMaxUserId();
     abstract Boolean writeUser(User user,String password);
     abstract Boolean checkUser(String username, String password);
+    abstract User getUserByName(String username);
 
 }

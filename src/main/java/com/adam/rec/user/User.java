@@ -21,7 +21,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "[User]id="+userId+",name="+name+",sex="+sex+",birthDate"+getBirthDateString()+
+        return "[User]id="+userId+",name="+name+",sex="+sex+",birthDate="+getBirthDateString()+
                 ",profession="+profession+",area="+area+",interests="+getInterestsString();
     }
 

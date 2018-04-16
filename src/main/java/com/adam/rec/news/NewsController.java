@@ -1,16 +1,15 @@
 package com.adam.rec.news;
 
 import com.adam.rec.news.page.PagePaginationBuilder;
+import com.adam.rec.user.UserSession;
 import com.adam.rec.user_news.Evaluation;
+import com.adam.rec.user_news.EvaluationForm;
 import com.adam.rec.user_news.EvaluationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.Path;
 
 /**
  * @author Adam
@@ -23,11 +22,13 @@ public class NewsController {
 
     private NewsService newsServiceSpark;
     private NewsService newsServiceJdbc;
+    private UserSession userSession;
 
     @Autowired
-    public NewsController(NewsService newsServiceSpark, NewsService newsServiceJdbc) {
+    public NewsController(NewsService newsServiceSpark, NewsService newsServiceJdbc, UserSession userSession) {
         this.newsServiceSpark = newsServiceSpark;
         this.newsServiceJdbc = newsServiceJdbc;
+        this.userSession = userSession;
         try {
             //this.newsServiceJdbc.writeNewsList(newsServiceSpark.getNewsListByIdRange(1,1000));  //将使用Spark SQL查询得到的ID小于1000的写入Oracle数据库
         } catch (Exception e) {
@@ -57,17 +58,18 @@ public class NewsController {
     }
 
     @ModelAttribute
-    public Evaluation getEvaluation() {
-        return new Evaluation();
+    public EvaluationForm getEvaluationForm() {
+        return new EvaluationForm();
     }
 
     @RequestMapping(value = "/viewNews/{newsId}/evaluation", params = "submitEvaluation", method = RequestMethod.POST)
-    public String newEvaluation(Evaluation evaluation, @PathVariable int newsId, RedirectAttributes redirectAttributes) {
-        System.out.println("" + newsId + evaluation);
-        if(!EvaluationUtil.isValid(evaluation)){
-            redirectAttributes.addFlashAttribute("error",EvaluationUtil.whyInvalid(evaluation));
+    public String newEvaluation(EvaluationForm evaluationForm, @PathVariable int newsId, RedirectAttributes redirectAttributes) {
+        if(!EvaluationUtil.isValid(evaluationForm)){
+            redirectAttributes.addFlashAttribute("error",EvaluationUtil.whyInvalid(evaluationForm));
         } else {
             redirectAttributes.addFlashAttribute("error","感谢您的评价！");
+            Evaluation evaluation = EvaluationUtil.buildEvaluation(evaluationForm,userSession.getUserIdSession(),newsId);
+            System.out.println(evaluation);
         }
         return "redirect:/viewNews/"+newsId;
     }

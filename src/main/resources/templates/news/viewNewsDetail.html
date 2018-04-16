@@ -55,9 +55,9 @@
                                 <a id="star2" class="col s1" style="cursor: pointer;" onclick="star2()"><i id="star2ic" class="material-icons left">star_border</i></a>
                                 <a id="star3" class="col s1" style="cursor: pointer;" onclick="star3()"><i id="star3ic" class="material-icons left">star_border</i></a>
                                 <a id="star4" class="col s1" style="cursor: pointer;" onclick="star4()"><i id="star4ic" class="material-icons left">star_border</i></a>
-                                <input id="isLike" name="isLike" th:field="${evaluation.isLike}" type="text" hidden="hidden" value="undefined"/>
-                                <input id="isDislike" name="isDislike" th:field="${evaluation.isDislike}" type="text" hidden="hidden" value="undefined"/>
-                                <input id="score" th:field="${evaluation.score}" type="text" value="0.0" hidden="hidden"/>
+                                <input id="isLike" name="isLike" th:field="${evaluationForm.isLike}" type="text" hidden="hidden" value="undefined"/>
+                                <input id="isDislike" name="isDislike" th:field="${evaluationForm.isDislike}" type="text" hidden="hidden" value="undefined"/>
+                                <input id="score" th:field="${evaluationForm.score}" type="text" value="0.0" hidden="hidden"/>
                                 <input style="margin-left: 40px" class="center" id="submitEvaluation" name="submitEvaluation" type="submit" value="提交评价"/>
                             </div>
                         </div>

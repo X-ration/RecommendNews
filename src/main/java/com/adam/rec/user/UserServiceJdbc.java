@@ -3,11 +3,15 @@ package com.adam.rec.user;
 import com.adam.rec.jdbc.JdbcUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import scala.reflect.runtime.SynchronizedSymbols;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 /**
  * @author adam
@@ -72,6 +76,33 @@ public class UserServiceJdbc extends UserService{
             e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * 根据用户名查询数据库获取User对象。由于在数据库设置了用户名唯一约束，因此查询结果应当只有一条。
+     * @param username 用户名
+     * @return 根据用户名从数据库中查询得到的User对象
+     */
+    @Override
+    User getUserByName(String username) {
+        User user = null;
+        String sql = "SELECT * FROM REC_USER WHERE NAME='"+username+"'";
+        try {
+            ResultSet resultSet = jdbcUtil.executeQuery(sql);
+            if(resultSet.next()) {
+                user = new User();
+                user.setUserId(resultSet.getInt(1));
+                user.setName(resultSet.getString(3));
+                user.setSex(resultSet.getString((4)));
+                user.setBirthDate(LocalDate.parse(resultSet.getString(5), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                user.setProfession(resultSet.getString(6));
+                user.setArea(resultSet.getString((7)));
+                user.setInterests(Arrays.asList(resultSet.getString(8).split(",")));
+            }
+        } catch (SQLException e) {
+            System.out.println("无法正常查询得到用户对象");
+        }
+        return user;
     }
 
 }
