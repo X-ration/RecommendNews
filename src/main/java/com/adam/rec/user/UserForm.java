@@ -12,6 +12,8 @@ public class UserForm {
     private String profession;
     private String area;
     private String interests;
+    private String password;
+    private String confirmPassword;
 
     @Override
     public String toString() {
@@ -20,7 +22,9 @@ public class UserForm {
                 "birthDate="+birthDate+
                 "profession="+profession+
                 "area="+area+
-                "interests="+ interests;
+                "interests="+ interests+
+                "password="+password+
+                "confirm="+confirmPassword;
     }
 
     public String getName() {
@@ -69,5 +73,21 @@ public class UserForm {
 
     public void setInterests(String interests) {
         this.interests = interests;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }

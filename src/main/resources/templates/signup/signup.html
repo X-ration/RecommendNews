@@ -37,30 +37,45 @@
                     <input th:field="${userForm.name}" id="userName" type="text" required="required"/>
                     <label for="userName">用户名</label>
                 </div>
+            </div>
+            <div class="row">
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">person</i>
-                    <input th:field="${userForm.sex}" placeholder="男/女" id="sex" type="text" required="required"/>
-                    <label for="sex">性别</label>
+                    <input th:field="${userForm.password}" id="password" type="password" required="required"/>
+                    <label for="password">密码</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">person</i>
+                    <input th:field="${userForm.confirmPassword}" id="confirmPassword" type="password" required="required"/>
+                    <label for="confirmPassword">确认密码</label>
                 </div>
             </div>
             <div class="row">
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">person</i>
+                    <input class="validate" th:field="${userForm.sex}" placeholder="男/女" id="sex" type="text" required="required"/>
+                    <label for="sex">性别</label>
+                </div>
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">person</i>
                     <input th:field="${userForm.birthDate}" id="birthDate" type="text" required="required" placeholder="yyyy-MM-dd" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"/>
                     <label for="birthDate">出生日期</label>
                 </div>
+
+            </div>
+            <div class="row">
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">person</i>
                     <input th:field="${userForm.profession}" id="profession" type="text" required="required"/>
                     <label for="profession">职业</label>
                 </div>
-            </div>
-            <div class="row">
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">person</i>
                     <input th:field="${userForm.area}" id="area" type="text" required="required"/>
                     <label for="area">地区</label>
                 </div>
+            </div>
+            <div class="row">
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">person</i>
                     <input th:field="${userForm.interests}" id="interests" placeholder="以英文,分隔" type="text" required="required" pattern="(.*,)*"/>
