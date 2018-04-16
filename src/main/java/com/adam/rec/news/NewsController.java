@@ -21,11 +21,11 @@ import javax.ws.rs.Path;
 @Controller
 public class NewsController {
 
-    private NewsServiceSpark newsServiceSpark;
-    private NewsServiceJdbc newsServiceJdbc;
+    private NewsService newsServiceSpark;
+    private NewsService newsServiceJdbc;
 
     @Autowired
-    public NewsController(NewsServiceSpark newsServiceSpark, NewsServiceJdbc newsServiceJdbc) {
+    public NewsController(NewsService newsServiceSpark, NewsService newsServiceJdbc) {
         this.newsServiceSpark = newsServiceSpark;
         this.newsServiceJdbc = newsServiceJdbc;
         try {

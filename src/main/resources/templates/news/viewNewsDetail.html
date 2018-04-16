@@ -9,9 +9,7 @@
 
 <div class="container" layout:fragment="content">
 
-    <div id="row errMsg" class="card-panel red lighten-2" th:if="${error}">
-        <span class="card-title" th:text="${error}"></span>
-    </div>
+
 
     <!--Breadcrumb-->
     <div class="row">
@@ -24,6 +22,10 @@
                 </div>
             </div>
         </nav>
+    </div>
+
+    <div id="errMsg" class="row card-panel red lighten-2" th:if="${error}">
+        <span class="card-title" th:text="${error}"></span>
     </div>
 
     <div class="row">

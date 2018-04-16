@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+<head>
+    <meta charset="UTF-8"/>
+    <title>sign up</title>
+</head>
+<body>
+
+<div class="container" layout:fragment="content">
+
+
+    <!--Breadcrumb-->
+    <div class="row">
+        <nav>
+            <div class="nav-wrapper">
+                <div class="col s12">
+                    <a href="/" class="breadcrumb">首页</a>
+                    <a class="breadcrumb">注册</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div id="errMsg" class="row card-panel red lighten-2" th:if="${error}">
+        <span class="card-title" th:text="${error}"></span>
+    </div>
+
+    <div class="row">
+        <form action="/signup" method="post" class="col s12">
+            <h4>注册成为新闻网用户</h4>
+
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">person</i>
+                    <input th:field="${userForm.name}" id="userName" type="text" required="required"/>
+                    <label for="userName">用户名</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">person</i>
+                    <input th:field="${userForm.sex}" placeholder="男/女" id="sex" type="text" required="required"/>
+                    <label for="sex">性别</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">person</i>
+                    <input th:field="${userForm.birthDate}" id="birthDate" type="text" required="required" placeholder="yyyy-MM-dd" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"/>
+                    <label for="birthDate">出生日期</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">person</i>
+                    <input th:field="${userForm.profession}" id="profession" type="text" required="required"/>
+                    <label for="profession">职业</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">person</i>
+                    <input th:field="${userForm.area}" id="area" type="text" required="required"/>
+                    <label for="area">地区</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">person</i>
+                    <input th:field="${userForm.interests}" id="interests" placeholder="以英文,分隔" type="text" required="required" pattern="(.*,)*"/>
+                    <label for="interests">兴趣</label>
+                </div>
+            </div>
+            <div class="row">
+                <button id="submitUser" type="submit" name="submitUser"
+                        class="btn waves-effect waves-light teal lighten-2">注册！</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<script layout:fragment="script">
+    $(document).ready(function(){
+        $('.chips').chips();
+    });
+</script>
+</body>
+</html>
