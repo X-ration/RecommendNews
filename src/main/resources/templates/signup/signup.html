@@ -51,10 +51,18 @@
                 </div>
             </div>
             <div class="row">
+                <!--<div class="input-field col s12 m6">-->
+                    <!--<i class="material-icons prefix">sentiment_very_satisfied</i>-->
+                    <!--<input class="validate" th:field="${userForm.sex}" placeholder="男/女" id="sex" type="text" required="required"/>-->
+                    <!--<label for="sex">性别</label>-->
+                <!--</div>-->
                 <div class="input-field col s12 m6">
-                    <i class="material-icons prefix">sentiment_very_satisfied</i>
-                    <input class="validate" th:field="${userForm.sex}" placeholder="男/女" id="sex" type="text" required="required"/>
-                    <label for="sex">性别</label>
+                    <select id="sexOptions">
+                        <option>男</option>
+                        <option>女</option>
+                    </select>
+                    <label>性别</label>
+                    <input id="sex" th:field="${userForm.sex}" hidden="hidden" value=""/>
                 </div>
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">date_range</i>
@@ -83,7 +91,7 @@
                 </div>
             </div>
             <div class="row">
-                <button id="submitUser" type="submit" name="submitUser"
+                <button id="submitUser" type="submit" name="submitUser" onclick="getSex()"
                         class="btn waves-effect waves-light teal lighten-2">注册！</button>
             </div>
         </form>
@@ -108,7 +116,13 @@
                 weekdaysAbbrev:['日','一','二','三','四','五','六']
             }
         });
+        $('select').formSelect();
     });
+
+    function getSex() {
+        var options = $('#sexOptions').find('option:selected');
+        $('#sex').attr('value',options.text());
+    }
 </script>
 </body>
 </html>
