@@ -29,7 +29,7 @@
 
     <div class="row">
         <form action="/signup" method="post" class="col s12">
-            <h4>注册成为新闻网用户</h4>
+            <h4>注册成为新闻网会员</h4>
 
             <div class="row">
                 <div class="input-field col s12 m6">
@@ -73,10 +73,18 @@
                     <input class="validate" th:field="${userForm.profession}" id="profession" type="text" required="required"/>
                     <label for="profession">职业</label>
                 </div>
+                <!--<div class="input-field col s12 m6">-->
+                    <!--<i class="material-icons prefix">location_city</i>-->
+                    <!--<input class="validate" th:field="${userForm.area}" id="area" type="text" required="required"/>-->
+                    <!--<label for="area">地区</label>-->
+                <!--</div>-->
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">location_city</i>
-                    <input class="validate" th:field="${userForm.area}" id="area" type="text" required="required"/>
-                    <label for="area">地区</label>
+                    <select id="areaOptions">
+                        <option th:each="city:${cities}" th:text="${city}">城市</option>
+                    </select>
+                    <label>地区</label>
+                    <input id="area" type="text" th:field="${userForm.area}" hidden="hidden" value=""/>
                 </div>
             </div>
             <div class="row">
@@ -91,9 +99,9 @@
                     <input id="interests" th:field="${userForm.interests}" type="text" value="" hidden="hidden"/>
                 </div>
             </div>
-            <div class="row">
-                <button id="submitUser" type="submit" name="submitUser" onclick="getSex()"
-                        class="btn waves-effect waves-light teal lighten-2">注册！</button>
+            <div class="row center">
+                <button id="submitUser" type="submit" name="submitUser" onclick="acquire()"
+                        class="btn waves-effect waves-light teal lighten-2">注册为新闻网会员<i class="material-icons right">verified_user</i></button>
             </div>
         </form>
     </div>
@@ -149,8 +157,16 @@
     });
 
     function getSex() {
-        var options = $('#sexOptions').find('option:selected');
-        $('#sex').attr('value',options.text());
+        var option = $('#sexOptions').find('option:selected');
+        $('#sex').attr('value',option.text());
+    }
+    function getArea() {
+        var option = $('#areaOptions').find('option:selected');
+        $('#area').attr('value',option.text());
+    }
+    function acquire() {
+        getSex();
+        getArea();
     }
 </script>
 </body>

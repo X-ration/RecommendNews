@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -16,11 +17,13 @@ public class UserController {
 
     private UserService userServiceJdbc;
     private UserSession userSession;
+    private CityRepository cityRepository;
 
     @Autowired
-    public UserController(UserServiceJdbc userServiceJdbc, UserSession userSession) {
+    public UserController(UserServiceJdbc userServiceJdbc, UserSession userSession, CityRepository cityRepository) {
         this.userServiceJdbc = userServiceJdbc;
         this.userSession = userSession;
+        this.cityRepository = cityRepository;
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
@@ -53,8 +56,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/signup",method = RequestMethod.GET)
-    public String signup() {
-        return "signup/signup";
+    public ModelAndView signup() {
+        ModelAndView modelAndView = new ModelAndView("signup/signup");
+        modelAndView.addObject("cities",cityRepository.getCities());
+        return modelAndView;
     }
 
     @RequestMapping(value = "/signup",method = RequestMethod.POST)
