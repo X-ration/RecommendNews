@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class UserSession {
 
     private User userSession;
-    private Boolean isConnected;
+    private Boolean isConnected = false;
 
     public User getUserSession() {
         return userSession;

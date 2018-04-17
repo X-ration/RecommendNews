@@ -18,7 +18,7 @@ scale=1, maximum-scale=1.0, user-scalable=no"/>
     <nav class="light-blue nav-extended">
         <div class="nav-wrapper">
             <div class="container">
-                <a href="#!" class="brand-logo">新闻网</a>
+                <a href="/" class="brand-logo">新闻网</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="/viewNews"><i class="material-icons left">fiber_new</i>最新</a></li>
@@ -35,9 +35,11 @@ scale=1, maximum-scale=1.0, user-scalable=no"/>
                     <div class="background">
                         <img src="/images/wave.jpg"/>
                     </div>
-                    <a href="/signup"><img class="circle" src="/images/profile.jpg"/></a>
-                    <a><span class="white-text name">Adam</span></a>
-                    <a><span class="white-text email">user@email.com</span></a>
+                    <a href="/profile" th:if="${@userSession.isConnected()}"><img class="circle" src="/images/profile.jpg"/></a>
+                    <a href="/login" th:if="${!(@userSession.isConnected())}"><img class="circle" src="/images/profile.jpg"/></a>
+                    <a><span class="white-text name" th:if="${@userSession.isConnected()}" th:text="${@userSession.getUserSession().getName()}+'(已登录)'">User</span></a>
+                    <a><span class="white-text name" th:if="${!(@userSession.isConnected())}">请登录</span></a>
+
                 </div>
             </li>
             <li><a href="/viewNews"><i class="material-icons left">fiber_new</i>最新</a></li>
