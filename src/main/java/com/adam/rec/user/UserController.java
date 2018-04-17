@@ -26,7 +26,7 @@ public class UserController {
         this.cityRepository = cityRepository;
     }
 
-    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    @RequestMapping(value = "/login")
     public String loginGet() {
         return "login/login";
     }
