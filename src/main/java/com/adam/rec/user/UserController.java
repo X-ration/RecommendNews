@@ -36,7 +36,7 @@ public class UserController {
         Boolean result = userServiceJdbc.checkUser(loginForm.getUsername(),loginForm.getPassword());
         if(result){
             System.out.println("用户"+loginForm.getUsername()+"登陆成功");
-            userSession.saveUserSession(userServiceJdbc.getUserByName(loginForm.getUsername()));
+            userSession.login(userServiceJdbc.getUserByName(loginForm.getUsername()));
             System.out.println(userSession.getUserSession());
             return "redirect:/";
         } else {

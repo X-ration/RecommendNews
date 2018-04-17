@@ -64,7 +64,9 @@ public class NewsController {
 
     @RequestMapping(value = "/viewNews/{newsId}/evaluation", params = "submitEvaluation", method = RequestMethod.POST)
     public String newEvaluation(EvaluationForm evaluationForm, @PathVariable int newsId, RedirectAttributes redirectAttributes) {
-        if(!EvaluationUtil.isValid(evaluationForm)){
+        if(!userSession.isConnected()) {
+            return "redirect:/login";
+        } else if(!EvaluationUtil.isValid(evaluationForm)){
             redirectAttributes.addFlashAttribute("error",EvaluationUtil.whyInvalid(evaluationForm));
         } else {
             redirectAttributes.addFlashAttribute("error","感谢您的评价！");
