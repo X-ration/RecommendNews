@@ -25,6 +25,7 @@ public class UserUtil {
     }
 
     public static String analyzeUserFormValidity(UserForm userForm) {
+        if(userForm.getName().length()>12) return "用户名应限制在12个字符以内";
         if(!userForm.getPassword().equals(userForm.getConfirmPassword())) return "前后输入的密码不一致";
         if(!(userForm.getSex().contains("男") || userForm.getSex().contains("女"))) return "性别输入错误";
         return null;
