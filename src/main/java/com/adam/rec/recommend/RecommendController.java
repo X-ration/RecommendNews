@@ -22,10 +22,10 @@ public class RecommendController {
 
     @RequestMapping("/recommend")
     public String recommend(RedirectAttributes redirectAttributes) {
-        if(!userSession.isConnected()){
-            redirectAttributes.addFlashAttribute("error","请先登录！");
-            return "redirect:/login";
-        }
+//        if(!userSession.isConnected()){
+//            redirectAttributes.addFlashAttribute("error","请先登录！");
+//            return "redirect:/login";
+//        }
         return "recommend/recommend";
     }
 

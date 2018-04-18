@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta http-equiv="Content-Type" content="text/html;
 charset=UTF-8"/>
@@ -35,10 +36,14 @@ scale=1, maximum-scale=1.0, user-scalable=no"/>
                     <div class="background">
                         <img src="/images/wave.jpg"/>
                     </div>
-                    <a href="/profile" th:if="${@userSession.isConnected()}"><img class="circle" src="/images/profile.jpg"/></a>
-                    <a href="/login" th:if="${!(@userSession.isConnected())}"><img class="circle" src="/images/profile.jpg"/></a>
-                    <a><span class="white-text name" th:if="${@userSession.isConnected()}" th:text="${@userSession.getUserSession().getName()}+'(已登录)'">User</span></a>
-                    <a><span class="white-text name" th:if="${!(@userSession.isConnected())}">请登录</span></a>
+                    <a href="/profile" sec:authorize="isAuthenticated()"><img class="circle" src="/images/profile.jpg"/> </a>
+                    <a href="/login" sec:authorize="!isAuthenticated()"><img class="circle" src="/images/annoymous.jpg"/> </a>
+                    <a><span class="white-text name" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span>(已登录)</span></a>
+                    <a><span class="white-text name" sec:authorize="!isAuthenticated()"><p>请登录</p></span> </a>
+                    <!--<a href="/profile" th:if="${@userSession.isConnected()}"><img class="circle" src="/images/profile.jpg"/></a>-->
+                    <!--<a href="#" th:if="${!(@userSession.isConnected())}"><img class="circle" src="/images/profile.jpg"/></a>-->
+                    <!--<a><span class="white-text name" th:if="${@userSession.isConnected()}" th:text="${@userSession.getUserSession().getName()}+'(已登录)'">User</span></a>-->
+                    <!--<a><span class="white-text name" th:if="${!(@userSession.isConnected())}">请登录</span></a>-->
 
                 </div>
             </li>
@@ -47,6 +52,15 @@ scale=1, maximum-scale=1.0, user-scalable=no"/>
             <li><a href="/profile"><i class="material-icons left">person</i>资料</a></li>
         </ul>
     </nav>
+</div>
+<div class="row container" sec:authorize="isAuthenticated()">
+    You are logged as <b sec:authentication="name"></b> with roles <span
+        sec:authentication="authorities"></span>
+    -
+    <form th:action="@{/logout}" method="post" style="display: inline-block">
+        <input type="submit" value="Sign Out"/>
+    </form>
+    <hr/>
 </div>
 
 <section layout:fragment="content">

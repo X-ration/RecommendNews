@@ -26,7 +26,7 @@ public class UserController {
         this.cityRepository = cityRepository;
     }
 
-    @RequestMapping(value = "/login")
+    @RequestMapping(value = "/login",method = RequestMethod.GET)
     public String loginGet() {
         return "login/login";
     }
@@ -80,6 +80,11 @@ public class UserController {
             return "redirect:/signup";
         }
 
+    }
+
+    @RequestMapping("/secureLogin")
+    public String secureLogin() {
+        return "login/secureLogin";
     }
 
 
