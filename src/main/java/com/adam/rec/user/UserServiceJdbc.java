@@ -106,4 +106,19 @@ public class UserServiceJdbc extends UserService{
         return user;
     }
 
+    @Override
+    public int getUserIdByName(String username) {
+        int userId = -1;
+        String sql = "SELECT user_id FROM REC_USER WHERE NAME='"+username+"'";
+        try {
+            ResultSet resultSet = jdbcUtil.executeQuery(sql);
+            if(resultSet.next()) {
+                userId = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println("无法正常查询得到用户对象");
+        }
+        return userId;
+    }
+
 }

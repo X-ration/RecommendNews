@@ -16,33 +16,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UserController {
 
     private UserService userServiceJdbc;
-    private UserSession userSession;
     private CityRepository cityRepository;
 
     @Autowired
-    public UserController(UserServiceJdbc userServiceJdbc, UserSession userSession, CityRepository cityRepository) {
+    public UserController(UserServiceJdbc userServiceJdbc, CityRepository cityRepository) {
         this.userServiceJdbc = userServiceJdbc;
-        this.userSession = userSession;
         this.cityRepository = cityRepository;
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public String loginGet() {
         return "login/login";
-    }
-
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public String loginPost(LoginForm loginForm, RedirectAttributes redirectAttributes) {
-        Boolean result = userServiceJdbc.checkUser(loginForm.getUsername(),loginForm.getPassword());
-        if(result){
-            System.out.println("用户"+loginForm.getUsername()+"登陆成功");
-            userSession.login(userServiceJdbc.getUserByName(loginForm.getUsername()));
-            System.out.println(userSession.getUserSession());
-            return "redirect:/";
-        } else {
-            System.out.println("用户"+loginForm.getUsername()+"登录失败");
-            return "redirect:/login";
-        }
     }
 
     @ModelAttribute

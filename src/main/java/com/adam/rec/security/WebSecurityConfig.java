@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .formLogin()
                 .loginPage("/login")   //自定义登录页
-                .defaultSuccessUrl("/")
+                //.defaultSuccessUrl("/")
                 .and()
                 .logout().logoutSuccessUrl("/login")
                 .and()
@@ -44,15 +44,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected UserDetailsService userDetailsService() {
-//        UserDetails userDetails =
-//                User
-//                .withUsername("Adam")
-//                .password("Adam")
-//                .roles("USER")
-//                .build();
-//        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-//        manager.createUser(userDetails);
-//        return manager;
         return this.customUserDetailsService;
     }
 
