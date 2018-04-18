@@ -82,10 +82,4 @@ public class UserController {
 
     }
 
-    @RequestMapping("/secureLogin")
-    public String secureLogin() {
-        return "login/secureLogin";
-    }
-
-
 }

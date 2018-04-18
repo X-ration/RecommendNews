@@ -15,8 +15,11 @@
 
     <h2 class="header center orange-text">登录</h2>
     <div class="row">
-        <div id="errMsg" class="row card-panel red lighten-2" th:if="${error}">
-            <span class="card-title" th:text="${error}"></span>
+        <div id="error" class="row card-panel red lighten-2" th:if="${param.error}">
+            <span class="card-title">Login failed.</span>
+        </div>
+        <div id="logout" class="row card-panel red lighten-2" th:if="${param.logout}">
+            <span class="card-title">You have logged out.</span>
         </div>
 
         <form class="col s12" th:action="@{/login}" method="post" th:object="${loginForm}">

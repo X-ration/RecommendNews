@@ -6,10 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 /**
  * @author adam
@@ -19,25 +16,16 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    public WebSecurityConfig(CustomUserDetailsService customUserDetailsService) {
+        this.customUserDetailsService = customUserDetailsService;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .csrf().and()
-//                .authorizeRequests()
-//                .antMatchers("/css/**","/images/**","/js/**","/webjars/**")
-//                .permitAll()
-//                .antMatchers("/","/viewNews","/error","/login","/signup","/viewNews/{newsId}")
-//                .permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin()
-//                .loginPage("/secureLogin")
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .permitAll();
         http
-
                 .formLogin()
                 .loginPage("/login")   //自定义登录页
                 .defaultSuccessUrl("/")
@@ -51,12 +39,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureAuth(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("Adam").password("Adam").roles("USER");
+        auth.userDetailsService(userDetailsService());
     }
 
-//    @Override
-//    protected UserDetailsService userDetailsService() {
+    @Override
+    protected UserDetailsService userDetailsService() {
 //        UserDetails userDetails =
 //                User
 //                .withUsername("Adam")
@@ -66,6 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
 //        manager.createUser(userDetails);
 //        return manager;
-//    }
+        return this.customUserDetailsService;
+    }
 
 }

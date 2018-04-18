@@ -27,7 +27,7 @@ public class UserServiceJdbc extends UserService{
     }
 
     @Override
-    int getMaxUserId() {
+    public int getMaxUserId() {
         ResultSet resultSet = jdbcUtil.executeQuery("SELECT MAX(user_id) FROM REC_USER");
         int result = 1;
         try {
@@ -41,7 +41,7 @@ public class UserServiceJdbc extends UserService{
     }
 
     @Override
-    Boolean writeUser(User user,String password) {
+    public Boolean writeUser(User user,String password) {
 //        INSERT INTO REC_USER VALUES(USERID.NEXTVAL,'FSDA','ASFD','FSDA','FASD','FASD','FDAS')
         String sql = "INSERT INTO REC_USER VALUES(TO_NUMBER(USERID.NEXTVAL),'"+password+"','"+user.getName()+"','"+
                 user.getSex()+"','"+user.getBirthDateString()+"','"+user.getProfession()+"','"+
@@ -53,7 +53,7 @@ public class UserServiceJdbc extends UserService{
     }
 
     @Override
-    Boolean checkUser(String username, String password) {
+    public Boolean checkUser(String username, String password) {
         String sql = "SELECT COUNT(*) FROM (SELECT * FROM rec_user WHERE name='" + username + "' AND password='" + password + "')";
 
         try {
@@ -84,7 +84,7 @@ public class UserServiceJdbc extends UserService{
      * @return 根据用户名从数据库中查询得到的User对象
      */
     @Override
-    User getUserByName(String username) {
+    public User getUserByName(String username) {
         User user = null;
         String sql = "SELECT * FROM REC_USER WHERE NAME='"+username+"'";
         try {
@@ -92,6 +92,7 @@ public class UserServiceJdbc extends UserService{
             if(resultSet.next()) {
                 user = new User();
                 user.setUserId(resultSet.getInt(1));
+                user.setPassword(resultSet.getString(2));
                 user.setName(resultSet.getString(3));
                 user.setSex(resultSet.getString((4)));
                 user.setBirthDate(LocalDate.parse(resultSet.getString(5), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
