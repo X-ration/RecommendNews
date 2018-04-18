@@ -40,27 +40,16 @@ scale=1, maximum-scale=1.0, user-scalable=no"/>
                     <a href="/login" sec:authorize="!isAuthenticated()"><img class="circle" src="/images/annoymous.jpg"/> </a>
                     <a><span class="white-text name" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span>(已登录)</span></a>
                     <a><span class="white-text name" sec:authorize="!isAuthenticated()"><p>请登录</p></span> </a>
-                    <!--<a href="/profile" th:if="${@userSession.isConnected()}"><img class="circle" src="/images/profile.jpg"/></a>-->
-                    <!--<a href="#" th:if="${!(@userSession.isConnected())}"><img class="circle" src="/images/profile.jpg"/></a>-->
-                    <!--<a><span class="white-text name" th:if="${@userSession.isConnected()}" th:text="${@userSession.getUserSession().getName()}+'(已登录)'">User</span></a>-->
-                    <!--<a><span class="white-text name" th:if="${!(@userSession.isConnected())}">请登录</span></a>-->
-
                 </div>
             </li>
             <li><a href="/viewNews"><i class="material-icons left">fiber_new</i>最新</a></li>
             <li><a href="/recommend"><i class="material-icons left">list</i>推荐</a></li>
             <li><a href="/profile"><i class="material-icons left">person</i>资料</a></li>
+            <li sec:authorize="!isAuthenticated()"><div class="divider"></div> </li>
+            <li sec:authorize="!isAuthenticated()"><a href="/login"><i class="material-icons left">list</i>登录</a></li>
+            <li sec:authorize="!isAuthenticated()"><a href="/signup"><i class="material-icons left">list</i>注册</a></li>
         </ul>
     </nav>
-</div>
-<div class="row container" sec:authorize="isAuthenticated()">
-    You are logged as <b sec:authentication="name"></b> with roles <span
-        sec:authentication="authorities"></span>
-    -
-    <form th:action="@{/logout}" method="post" style="display: inline-block">
-        <input type="submit" value="Sign Out"/>
-    </form>
-    <hr/>
 </div>
 
 <section layout:fragment="content">

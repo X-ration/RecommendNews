@@ -121,4 +121,19 @@ public class UserServiceJdbc extends UserService{
         return userId;
     }
 
+    @Override
+    public String getUserCityByName(String username) {
+        String city = "";
+        String sql = "SELECT area FROM REC_USER WHERE name='"+username+"'";
+        try {
+            ResultSet resultSet = jdbcUtil.executeQuery(sql);
+            if(resultSet.next()) {
+                city = resultSet.getString(1);
+            }
+        } catch (SQLException e) {
+            System.out.println("无法正常查询得到用户对象");
+        }
+        return city;
+    }
+
 }

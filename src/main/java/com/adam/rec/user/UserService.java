@@ -11,5 +11,6 @@ public abstract class UserService {
     public abstract Boolean checkUser(String username, String password);
     public abstract User getUserByName(String username);
     public abstract int getUserIdByName(String username);
+    public abstract String getUserCityByName(String username);
 
 }

@@ -1,15 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout/default">
+      layout:decorator="layout/default"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8"/>
     <title>Profile</title>
 </head>
 <body>
 
-<div layout:fragment="content">
-    Hello this is profile.
+<div class="container" layout:fragment="content">
+    <div class="row">
+        <!--<div class="user-view">-->
+            <!--<a href="/profile" sec:authorize="isAuthenticated()"><img class="circle small" style="height: 50px;width: 50px;" src="/images/profile.jpg"/> </a>-->
+            <!--<a><span class="black-text name" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span>(已登录)</span></a>-->
+        <!--</div>-->
+        <ul class="collection">
+            <li class="collection-item avatar">
+                <img src="images/profile.jpg" alt="" class="circle"/>
+                <span class="title" ><span sec:authentication="name"></span>(已登录)</span>
+                <p th:text="'现居 '+${city}">City</p>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <form th:action="@{/logout}" method="post">
+            <button class="waves-effect waves-light btn-small blue lighten-1 white-text" type="submit">注销登录</button>
+        </form>
+    </div>
 </div>
 
 <script layout:fragment="script">
