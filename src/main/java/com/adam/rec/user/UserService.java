@@ -8,6 +8,7 @@ public abstract class UserService {
 
     public abstract int getMaxUserId();
     public abstract Boolean writeUser(User user);
+    public abstract Boolean updateUser(User user);
     public abstract Boolean checkUser(String username, String password);
     public abstract User getUserByName(String username);
     public abstract int getUserIdByName(String username);

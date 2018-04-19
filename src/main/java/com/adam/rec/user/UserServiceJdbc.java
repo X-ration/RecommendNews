@@ -55,6 +55,16 @@ public class UserServiceJdbc extends UserService{
     }
 
     @Override
+    public Boolean updateUser(User user) {
+        String sql = "UPDATE rec_user SET password='"+passwordEncoder.encode(user.getPassword())+"',sex='"+
+                user.getSex()+"',birthdate='"+user.getBirthDateString()+"',profession='"+user.getProfession()+"',area='"+
+                user.getArea()+"',interests='"+user.getInterestsString()+"' WHERE user_id="+user.getUserId();
+
+        int result = jdbcUtil.executeUpdate(sql);
+        return result >= 0 || result == Statement.SUCCESS_NO_INFO;
+    }
+
+    @Override
     public Boolean checkUser(String username, String password) {
         String sql = "SELECT COUNT(*) FROM (SELECT * FROM rec_user WHERE name='" + username + "' AND password='" + password + "')";
 

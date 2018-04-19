@@ -91,7 +91,7 @@ public class User {
     }
 
     public String getInterestsString() {
-        return interests.stream().collect(Collectors.joining(","));
+        return interests.stream().collect(Collectors.joining(","))+",";
     }
 
     public void setInterests(List<String> interests) {

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Modify profile</title>
+</head>
+<body>
+
+<div class="container" layout:fragment="content">
+
+    <!--Breadcrumb-->
+    <div class="row">
+        <nav>
+            <div class="nav-wrapper">
+                <div class="col s12">
+                    <a href="/" class="breadcrumb">首页</a>
+                    <a href="/profile" class="breadcrumb">资料</a>
+                    <a class="breadcrumb">修改资料</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div id="errMsg" class="row card-panel red lighten-2" th:if="${error}">
+        <span class="card-title" th:text="${error}"></span>
+    </div>
+
+    <div class="row">
+        <form th:action="@{/profile/modify}" method="post" class="col s12">
+
+            <h4>修改个人资料</h4>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">person</i>
+                    <input disabled="disabled" class="validate" th:field="${userForm.name}" id="userName" type="text" required="required" data-length="12"/>
+                    <label for="userName">用户名</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">lock</i>
+                    <input class="validate" th:field="${userForm.password}" id="password" type="password" required="required"/>
+                    <label class="active" for="password">密码</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">lock</i>
+                    <input class="validate" th:field="${userForm.confirmPassword}" id="confirmPassword" type="password" required="required"/>
+                    <label for="confirmPassword">确认密码</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">sentiment_very_satisfied</i>
+                    <select id="sexOptions">
+                        <option>男</option>
+                        <option>女</option>
+                    </select>
+                    <label>性别</label>
+                    <input id="sex" th:field="${userForm.sex}" hidden="hidden" value=""/>
+                </div>
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">date_range</i>
+                    <input id="birthDate" type="text" th:field="${userForm.birthDate}" class="datepicker validate" required="required"/>
+                    <label for="birthDate">出生日期</label>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">work</i>
+                    <input class="validate" th:field="${userForm.profession}" id="profession" type="text" required="required"/>
+                    <label for="profession">职业</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">location_city</i>
+                    <select id="areaOptions">
+                        <option th:each="city:${cities}" th:text="${city}">城市</option>
+                    </select>
+                    <label>地区</label>
+                    <input id="area" type="text" th:field="${userForm.area}" hidden="hidden" value=""/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">stars</i>
+                    <div id="chips" class="chips chips-initial chips-placeholder chips-autocomplete"></div>
+                    <input id="interests" th:field="${userForm.interests}" type="text" value="" hidden="hidden"/>
+                </div>
+            </div>
+
+            <!--<input type="hidden"-->
+                   <!--name="${_csrf.parameterName}"-->
+                   <!--value="${_csrf.token}"/>-->
+
+            <div class="row center">
+                <button id="submitUser" type="submit" name="submitUser" onclick="acquire()"
+                        class="btn waves-effect waves-light teal lighten-2">提交修改<i class="material-icons right">check</i></button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script layout:fragment="script">
+
+    function Chips(){
+    }
+    Chips.prototype = {
+        data:[]
+    }
+    function Tag(){
+    }
+    Tag.prototype={
+        tag: ''
+    }
+
+    $(document).ready(function(){
+        $('.datepicker').datepicker({
+            yearRange:100,
+            format:'yyyy-mm-dd',
+            maxDate:new Date(),
+            defaultDate:new Date(),
+            setDefaultDate:true,
+            i18n:{
+                cancel:'取消',
+                done:'确定',
+                months:['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+                monthsShort:['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+                weekdaysShort:['周日','周一','周二','周三','周四','周五','周六'],
+                weekdaysAbbrev:['日','一','二','三','四','五','六']
+            }
+        });
+
+        var curSex = $('#sex').attr("value");
+        if (curSex === 'F') {
+            $('#sexOptions').val("女");
+        }
+        var curArea = $('#area').attr("value");
+        $('#areaOptions').val(curArea);
+        $('select').formSelect();
+
+        $('input#userName').characterCounter();
+
+        var intsRaw = $('#interests').attr("value");
+        var intsArray = intsRaw.split(",");
+        intsArray.pop();
+        var chips = new Chips();
+        intsArray.forEach(function (item) {
+           var tag = new Tag();
+           tag.tag = item;
+           chips.data.push(tag);
+        });
+
+        $('#chips').chips({
+            data:chips.data,
+            placeholder: '添加兴趣标签',
+            secondaryPlaceholder: '+再来一个',
+
+            autocompleteOptions: {
+                data: {
+                    '公益':null,
+                    '滚动':null,
+                    '军事':null
+                }
+            },
+            onChipAdd: function (a,b) {
+                var chipContent = b.innerText;
+
+                var $ints = $('#interests');
+                $ints.attr("value", $ints.attr("value") + chipContent.substring(0, chipContent.length - 5) + ",");
+
+            },
+            onChipDelete: function () {
+                var $ints = $('#interests');
+                var last = $ints.attr("value").lastIndexOf(",",$ints.attr("value").length-2);
+                if (last ===-1) {
+                    $ints.attr("value","");
+                } else {
+                    $ints.attr("value",$ints.attr("value").substring(0,last+1));
+                }
+            }
+        });
+    });
+
+    function getSex() {
+        var option = $('#sexOptions').find('option:selected');
+        $('#sex').attr('value',option.text());
+    }
+    function getArea() {
+        var option = $('#areaOptions').find('option:selected');
+        $('#area').attr('value',option.text());
+    }
+    function acquire() {
+        getSex();
+        getArea();
+    }
+</script>
+</body>
+</html>

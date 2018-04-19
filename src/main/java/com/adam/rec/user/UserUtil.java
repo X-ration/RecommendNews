@@ -25,6 +25,17 @@ public class UserUtil {
         return user;
     }
 
+    public static UserForm convertToUserForm(User user) {
+        UserForm userForm = new UserForm();
+        userForm.setName(user.getName());
+        userForm.setSex(user.getSex());
+        userForm.setBirthDate(user.getBirthDateString());
+        userForm.setProfession(user.getProfession());
+        userForm.setArea(user.getArea());
+        userForm.setInterests(user.getInterestsString());
+        return userForm;
+    }
+
     public static String analyzeUserFormValidity(UserForm userForm) {
         if(userForm.getName().length()>12) return "用户名应限制在12个字符以内";
         if(!userForm.getPassword().equals(userForm.getConfirmPassword())) return "前后输入的密码不一致";

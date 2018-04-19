@@ -30,7 +30,7 @@
                 <span class="title" ><span sec:authentication="name"></span>(已登录)</span>
                 <p th:text="'现居 '+${user.area}">City</p>
                 <p th:text="'喜欢 '+${user.interestsString}">Interests</p>
-                <a href="#" class="secondary-content">修改资料</a>
+                <a href="/profile/modify" class="secondary-content">修改资料</a>
             </li>
         </ul>
     </div>
