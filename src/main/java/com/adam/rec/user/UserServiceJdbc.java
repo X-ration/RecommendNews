@@ -2,6 +2,7 @@ package com.adam.rec.user;
 
 import com.adam.rec.jdbc.JdbcUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import scala.reflect.runtime.SynchronizedSymbols;
 
@@ -21,9 +22,11 @@ import java.util.Arrays;
 public class UserServiceJdbc extends UserService{
 
     private JdbcUtil jdbcUtil;
+    private BCryptPasswordEncoder passwordEncoder;
     @Autowired
-    public UserServiceJdbc(JdbcUtil jdbcUtil){
+    public UserServiceJdbc(JdbcUtil jdbcUtil,BCryptPasswordEncoder passwordEncoder){
         this.jdbcUtil = jdbcUtil;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -41,9 +44,8 @@ public class UserServiceJdbc extends UserService{
     }
 
     @Override
-    public Boolean writeUser(User user,String password) {
-//        INSERT INTO REC_USER VALUES(USERID.NEXTVAL,'FSDA','ASFD','FSDA','FASD','FASD','FDAS')
-        String sql = "INSERT INTO REC_USER VALUES(TO_NUMBER(USERID.NEXTVAL),'"+password+"','"+user.getName()+"','"+
+    public Boolean writeUser(User user) {
+        String sql = "INSERT INTO REC_USER VALUES(TO_NUMBER(USERID.NEXTVAL),'"+passwordEncoder.encode(user.getPassword())+"','"+user.getName()+"','"+
                 user.getSex()+"','"+user.getBirthDateString()+"','"+user.getProfession()+"','"+
                 user.getArea()+"','"+user.getInterestsString()+"')";
 

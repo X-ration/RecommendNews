@@ -15,6 +15,7 @@ public class UserUtil {
     public static User convertToUser(UserForm userForm) {
         User user = new User();
         user.setUserId(0);
+        user.setPassword(userForm.getPassword());
         user.setName(userForm.getName());
         user.setSex((userForm.getSex().contains("男"))?"M":"F");
         user.setBirthDate(LocalDate.parse(userForm.getBirthDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
