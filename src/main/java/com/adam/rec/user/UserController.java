@@ -1,6 +1,7 @@
 package com.adam.rec.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +18,13 @@ public class UserController {
 
     private UserService userServiceJdbc;
     private CityRepository cityRepository;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserServiceJdbc userServiceJdbc, CityRepository cityRepository) {
+    public UserController(UserServiceJdbc userServiceJdbc, CityRepository cityRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userServiceJdbc = userServiceJdbc;
         this.cityRepository = cityRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
@@ -53,7 +56,7 @@ public class UserController {
         if(messageUserForm == null) {
             User user = UserUtil.convertToUser(userForm);
             System.out.println(user);
-            Boolean result = userServiceJdbc.writeUser(user,userForm.getPassword());
+            Boolean result = userServiceJdbc.writeUser(user,passwordEncoder.encode(userForm.getPassword()));
             if (result) return "redirect:/login";
             else {
                 redirectAttributes.addFlashAttribute("error", "注册失败：写入到数据库时发生异常");

@@ -63,7 +63,7 @@
                 </div>
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">date_range</i>
-                    <input id="birthDate" type="text" th:field="${userForm.birthDate}" class="datepicker"/>
+                    <input id="birthDate" type="text" th:field="${userForm.birthDate}" class="datepicker validate" required="required"/>
                     <label for="birthDate">出生日期</label>
                 </div>
 
@@ -74,11 +74,6 @@
                     <input class="validate" th:field="${userForm.profession}" id="profession" type="text" required="required"/>
                     <label for="profession">职业</label>
                 </div>
-                <!--<div class="input-field col s12 m6">-->
-                    <!--<i class="material-icons prefix">location_city</i>-->
-                    <!--<input class="validate" th:field="${userForm.area}" id="area" type="text" required="required"/>-->
-                    <!--<label for="area">地区</label>-->
-                <!--</div>-->
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">location_city</i>
                     <select id="areaOptions">
@@ -89,11 +84,6 @@
                 </div>
             </div>
             <div class="row">
-                <!--<div class="input-field col s12 m6">-->
-                    <!--<i class="material-icons prefix">stars</i>-->
-                    <!--<input class="validate" th:field="${userForm.interests}" id="interests" placeholder="以英文,分隔" type="text" required="required" pattern="(.*,)*"/>-->
-                    <!--<label for="interests">兴趣</label>-->
-                <!--</div>-->
                 <div class="input-field col s12">
                     <i class="material-icons prefix">stars</i>
                     <div id="chips" class="chips chips-initial chips-placeholder chips-autocomplete"></div>

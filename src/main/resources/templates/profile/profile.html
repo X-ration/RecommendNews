@@ -10,22 +10,33 @@
 <body>
 
 <div class="container" layout:fragment="content">
+
+    <!--Breadcrumb-->
     <div class="row">
-        <!--<div class="user-view">-->
-            <!--<a href="/profile" sec:authorize="isAuthenticated()"><img class="circle small" style="height: 50px;width: 50px;" src="/images/profile.jpg"/> </a>-->
-            <!--<a><span class="black-text name" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span>(已登录)</span></a>-->
-        <!--</div>-->
+        <nav>
+            <div class="nav-wrapper">
+                <div class="col s12">
+                    <a href="/" class="breadcrumb">首页</a>
+                    <a class="breadcrumb">资料</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="row">
         <ul class="collection">
             <li class="collection-item avatar">
                 <img src="images/profile.jpg" alt="" class="circle"/>
                 <span class="title" ><span sec:authentication="name"></span>(已登录)</span>
-                <p th:text="'现居 '+${city}">City</p>
+                <p th:text="'现居 '+${user.area}">City</p>
+                <p th:text="'喜欢 '+${user.interestsString}">Interests</p>
+                <a href="#" class="secondary-content">修改资料</a>
             </li>
         </ul>
     </div>
     <div class="row">
         <form th:action="@{/logout}" method="post">
-            <button class="waves-effect waves-light btn-small blue lighten-1 white-text" type="submit">注销登录</button>
+            <button class="waves-effect waves-light btn-small red white-text" type="submit">注销登录</button>
         </form>
     </div>
 </div>

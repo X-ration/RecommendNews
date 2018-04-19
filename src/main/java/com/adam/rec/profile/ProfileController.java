@@ -1,5 +1,6 @@
 package com.adam.rec.profile;
 
+import com.adam.rec.user.User;
 import com.adam.rec.user.UserService;
 import com.adam.rec.user.UserServiceJdbc;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,10 @@ public class ProfileController {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();
-        String city = userServiceJdbc.getUserCityByName(userDetails.getUsername());
+//        String city = userServiceJdbc.getUserCityByName(userDetails.getUsername());
+        User user = userServiceJdbc.getUserByName(userDetails.getUsername());
         ModelAndView modelAndView = new ModelAndView("profile/profile");
-        modelAndView.addObject("city",city);
+        modelAndView.addObject("user",user);
         return modelAndView;
     }
 
