@@ -24,12 +24,12 @@
     </div>
 
     <div class="row">
-        <ul class="collection">
+        <ul class="collection hoverable">
             <li class="collection-item avatar">
                 <img src="images/profile.jpg" alt="" class="circle"/>
                 <span class="title" ><span sec:authentication="name"></span>(已登录)</span>
-                <p th:text="'现居 '+${user.area}">City</p>
-                <p th:text="'喜欢 '+${user.interestsString}">Interests</p>
+                <p><span><b>现居 </b><span th:text="${user.area}">City</span></span></p>
+                <p><span><b>喜欢 </b><span th:text="${user.interestsString}">Interests</span></span></p>
                 <a href="/profile/modify" class="secondary-content">修改资料</a>
             </li>
         </ul>

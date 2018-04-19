@@ -15,16 +15,16 @@ scale=1, maximum-scale=1.0, user-scalable=no"/>
 </head>
 <body>
 
-<div id="navBar" class="row">
+<div id="navBar" class="row hoverable">
     <nav class="light-blue nav-extended">
         <div class="nav-wrapper">
             <div class="container">
-                <a href="/" class="brand-logo">新闻网</a>
+                <a href="/" class="brand-logo hoverable" style="padding-left: 10px;padding-right:10px">新闻网</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="/viewNews"><i class="material-icons left">fiber_new</i>最新</a></li>
-                    <li><a href="/recommend"><i class="material-icons left">list</i>推荐</a></li>
-                    <li><a href="/profile"><i class="material-icons left">person</i>资料</a></li>
+                    <li class="hoverable"><a href="/viewNews"><i class="material-icons left">fiber_new</i>最新</a></li>
+                    <li class="hoverable"><a href="/recommend"><i class="material-icons left">list</i>推荐</a></li>
+                    <li class="hoverable"><a href="/profile"><i class="material-icons left">person</i>资料</a></li>
                 </ul>
             </div>
         </div>
@@ -42,12 +42,12 @@ scale=1, maximum-scale=1.0, user-scalable=no"/>
                     <a><span class="white-text name" sec:authorize="!isAuthenticated()"><p>请登录</p></span> </a>
                 </div>
             </li>
-            <li><a href="/viewNews"><i class="material-icons left">fiber_new</i>最新</a></li>
-            <li><a href="/recommend"><i class="material-icons left">list</i>推荐</a></li>
-            <li><a href="/profile"><i class="material-icons left">person</i>资料</a></li>
+            <li class="hoverable"><a href="/viewNews"><i class="material-icons left">fiber_new</i>最新</a></li>
+            <li class="hoverable"><a href="/recommend"><i class="material-icons left">list</i>推荐</a></li>
+            <li class="hoverable"><a href="/profile"><i class="material-icons left">person</i>资料</a></li>
             <li sec:authorize="!isAuthenticated()"><div class="divider"></div> </li>
-            <li sec:authorize="!isAuthenticated()"><a href="/login"><i class="material-icons left">list</i>登录</a></li>
-            <li sec:authorize="!isAuthenticated()"><a href="/signup"><i class="material-icons left">list</i>注册</a></li>
+            <li class="hoverable" sec:authorize="!isAuthenticated()"><a href="/login"><i class="material-icons left">list</i>登录</a></li>
+            <li class="hoverable" sec:authorize="!isAuthenticated()"><a href="/signup"><i class="material-icons left">list</i>注册</a></li>
         </ul>
     </nav>
 </div>

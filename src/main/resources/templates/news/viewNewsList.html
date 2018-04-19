@@ -23,7 +23,7 @@
 
     <div class="row container">
         <div class="col s12 m6" th:each="news:${newsList}">
-            <div class="card indigo darken-2 small" style="max-height: 20%;">
+            <div class="card indigo darken-2 small hoverable" style="max-height: 20%;">
                 <div class="card-content white-text">
                     <span class="card-title" th:text="|[${news.category}] ${news.title}|">Card Title</span>
                     <p th:text="${news.newsAbstract}">Card Description</p>
