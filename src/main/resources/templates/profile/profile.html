@@ -29,7 +29,7 @@
                 <img src="images/profile.jpg" alt="" class="circle"/>
                 <span class="title" ><span sec:authentication="name"></span>(已登录)</span>
                 <p><span><b>现居 </b><span th:text="${user.area}">City</span></span></p>
-                <p><span><b>喜欢 </b><span th:text="${user.interestsString}">Interests</span></span></p>
+                <p><span><b>喜欢 </b><span th:text="${user.interestsString.substring(0,user.interestsString.length()-1)}">Interests</span></span></p>
                 <a href="/profile/modify" class="secondary-content">修改资料</a>
             </li>
         </ul>

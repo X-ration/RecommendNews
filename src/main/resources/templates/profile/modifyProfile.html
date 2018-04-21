@@ -31,7 +31,7 @@
     <div class="row">
         <form th:action="@{/profile/modify}" method="post" class="col s12">
 
-            <h4>修改个人资料</h4>
+            <h4 class="orange-text">修改个人资料</h4>
             <div class="row">
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">person</i>
@@ -86,14 +86,13 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">stars</i>
-                    <div id="chips" class="chips chips-initial chips-placeholder chips-autocomplete"></div>
+                    <select id="interestsSelects" multiple="multiple">
+                        <option th:each="cat:${categories}" th:value="${cat.value}" th:text="${cat.value}"></option>
+                    </select>
+                    <label>兴趣标签</label>
                     <input id="interests" th:field="${userForm.interests}" type="text" value="" hidden="hidden"/>
                 </div>
             </div>
-
-            <!--<input type="hidden"-->
-                   <!--name="${_csrf.parameterName}"-->
-                   <!--value="${_csrf.token}"/>-->
 
             <div class="row center">
                 <button id="submitUser" type="submit" name="submitUser" onclick="acquire()"
@@ -104,17 +103,6 @@
 </div>
 
 <script layout:fragment="script">
-
-    function Chips(){
-    }
-    Chips.prototype = {
-        data:[]
-    }
-    function Tag(){
-    }
-    Tag.prototype={
-        tag: ''
-    }
 
     $(document).ready(function(){
         $('.datepicker').datepicker({
@@ -142,46 +130,6 @@
         $('select').formSelect();
 
         $('input#userName').characterCounter();
-
-        var intsRaw = $('#interests').attr("value");
-        var intsArray = intsRaw.split(",");
-        intsArray.pop();
-        var chips = new Chips();
-        intsArray.forEach(function (item) {
-           var tag = new Tag();
-           tag.tag = item;
-           chips.data.push(tag);
-        });
-
-        $('#chips').chips({
-            data:chips.data,
-            placeholder: '添加兴趣标签',
-            secondaryPlaceholder: '+再来一个',
-
-            autocompleteOptions: {
-                data: {
-                    '公益':null,
-                    '滚动':null,
-                    '军事':null
-                }
-            },
-            onChipAdd: function (a,b) {
-                var chipContent = b.innerText;
-
-                var $ints = $('#interests');
-                $ints.attr("value", $ints.attr("value") + chipContent.substring(0, chipContent.length - 5) + ",");
-
-            },
-            onChipDelete: function () {
-                var $ints = $('#interests');
-                var last = $ints.attr("value").lastIndexOf(",",$ints.attr("value").length-2);
-                if (last ===-1) {
-                    $ints.attr("value","");
-                } else {
-                    $ints.attr("value",$ints.attr("value").substring(0,last+1));
-                }
-            }
-        });
     });
 
     function getSex() {
@@ -192,9 +140,13 @@
         var option = $('#areaOptions').find('option:selected');
         $('#area').attr('value',option.text());
     }
+    function getInterests() {
+        $('#interests').attr("value",$('#interestsSelects').formSelect('getSelectedValues')+',');
+    }
     function acquire() {
         getSex();
         getArea();
+        getInterests();
     }
 </script>
 </body>

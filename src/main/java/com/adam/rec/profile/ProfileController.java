@@ -1,5 +1,6 @@
 package com.adam.rec.profile;
 
+import com.adam.rec.news.NewsCategories;
 import com.adam.rec.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,11 +21,13 @@ public class ProfileController {
 
     private UserService userServiceJdbc;
     private CityRepository cityRepository;
+    private NewsCategories newsCategories;
 
     @Autowired
-    public ProfileController(UserServiceJdbc userServiceJdbc,CityRepository cityRepository) {
+    public ProfileController(UserServiceJdbc userServiceJdbc,CityRepository cityRepository,NewsCategories newsCategories) {
         this.userServiceJdbc = userServiceJdbc;
         this.cityRepository = cityRepository;
+        this.newsCategories = newsCategories;
     }
 
     @RequestMapping("/profile")
@@ -44,6 +47,7 @@ public class ProfileController {
 
         ModelAndView modelAndView = new ModelAndView("profile/modifyProfile");
         modelAndView.addObject("cities",cityRepository.getCities());
+        modelAndView.addObject("categories",newsCategories.getCategories());
         return modelAndView;
     }
 

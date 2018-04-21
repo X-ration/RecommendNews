@@ -1,5 +1,6 @@
 package com.adam.rec.user;
 
+import com.adam.rec.news.NewsCategories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -18,11 +19,13 @@ public class UserController {
 
     private UserService userServiceJdbc;
     private CityRepository cityRepository;
+    private NewsCategories newsCategories;
 
     @Autowired
-    public UserController(UserServiceJdbc userServiceJdbc, CityRepository cityRepository) {
+    public UserController(UserServiceJdbc userServiceJdbc, CityRepository cityRepository,NewsCategories newsCategories) {
         this.userServiceJdbc = userServiceJdbc;
         this.cityRepository = cityRepository;
+        this.newsCategories = newsCategories;
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
@@ -44,6 +47,7 @@ public class UserController {
     public ModelAndView signup() {
         ModelAndView modelAndView = new ModelAndView("signup/signup");
         modelAndView.addObject("cities",cityRepository.getCities());
+        modelAndView.addObject("categories",newsCategories.getCategories());
         return modelAndView;
     }
 
