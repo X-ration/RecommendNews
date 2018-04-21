@@ -29,7 +29,7 @@ public class SparkManager {
         Dataset<Row> dataset = sparkSession
                 .read()
                 .load(hdfsLocation);
-        dataset.createOrReplaceTempView("news_sohu");
+        dataset.createOrReplaceTempView(tableName);
     }
 
     public Dataset<Row> executeQuery(String sql) {

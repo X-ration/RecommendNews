@@ -9,7 +9,32 @@
 <body>
 
 <div layout:fragment="content">
-    Hello these are recommends.
+
+    <div class="row container">
+        <nav>
+            <div class="nav-wrapper">
+                <div class="col s12">
+                    <a href="/" class="breadcrumb">首页</a>
+                    <a class="breadcrumb">推荐</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="row container">
+        <div class="col s12 m6" th:each="news:${newsList}">
+            <div class="card indigo darken-2 small hoverable" style="max-height: 20%;">
+                <div class="card-content white-text">
+                    <span class="card-title" th:text="|[${news.category}] ${news.title}|">Card Title</span>
+                    <p th:text="${news.newsAbstract}">Card Description</p>
+                </div>
+                <div class="card-action">
+                    <a th:href="|/viewNews/${news.id}|">Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script layout:fragment="script">

@@ -1,0 +1,16 @@
+package com.adam.rec.recommend;
+
+import com.adam.rec.news.News;
+import org.apache.catalina.LifecycleState;
+
+import java.util.List;
+
+/**
+ * @author adam
+ * 创建于 2018-04-21 13:55.
+ */
+public abstract class RecommendService {
+
+    public abstract List<News> getNewsListFiltered(List<String> categories);
+
+}
