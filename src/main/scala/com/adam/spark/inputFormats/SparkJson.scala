@@ -15,7 +15,8 @@ object SparkJson {
       .setAppName("WordCount") //设置APP 的name，设置Local 模式的CPU资源
     val sc = new SparkContext(conf)
     val ssc = new SQLContext(sc)
-    val rdd = ssc.read.json("C:\\Users\\Adam\\Documents\\toutiao\\test.json")
-    rdd.show()
+    val df = ssc.read.json("hdfs://172.17.11.180:9000/data/newsDatas/NewsDatas/qqNewsEdu.json")
+
+    df.show()
   }
 }
