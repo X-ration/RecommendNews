@@ -10,7 +10,7 @@ import scala.util.Random
 
 object DataFrameManager {
 
-  private var id = 0
+  private var id = 5000000
   private val random = new Random()
 
   def generateCurrentId : Int = {
@@ -30,9 +30,15 @@ object DataFrameManager {
 
   val withDateTime = udf(()=>generateRandomDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
 
-//  val withCategory = udf((url:String)=>NewsCategories.identifyCategory(url))
+  val withCategory = udf((url:String)=>NewsCategories.identifyCategory(url))
 
   val withDefaultCount = (default:Int) => udf(()=>default)
   val withDefaultScore = (default:Double) => udf(()=>default)
+
+  val withDefaultComment = udf(()=>"[]")
+
+  val withContentListed = udf((content:String)=>Array[String](content))
+
+  val withEmptyComments = udf(()=>Array[String]())   //以此种方式声明数组时一定要声明类型，否则入坑！
 
 }

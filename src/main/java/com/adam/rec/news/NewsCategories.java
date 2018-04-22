@@ -37,4 +37,9 @@ public class NewsCategories {
         return categories;
     }
 
+    public static String identifyCategory(String url) {
+        String splited = url.split("/")[2];
+        return categories.getOrDefault(splited,"其他");
+    }
+
 }
