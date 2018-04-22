@@ -17,7 +17,7 @@ public class SparkManager {
     private SparkSession sparkSession;
     private SQLContext sqlContext;
 
-    public static final String NEWS_SOHU_LOCATION = "hdfs://172.17.11.180:9000/data/rec_news/news/news_sohu.parquet";
+    public static final String NEWS_SOHU_LOCATION = "hdfs://172.17.11.180:9000/data/rec_news/mergeIntermediate/news_merged.parquet";
     public static final String NEWS_SOHU_TABLE = "news_sohu";
 
     public SparkManager(SparkSession sparkSession, SQLContext sqlContext) {

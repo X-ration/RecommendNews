@@ -24,34 +24,34 @@ object SparkSQL {
     sparkSession.conf.set("spark.driver.memory","6g")
 //    sparkSession.conf.set("spark.local.dir","G:\\sparkTemp")
 //
-    val df_sohu = sparkSession
-      .read
-      .load("hdfs://172.17.11.180:9000/data/rec_news/news_sohu.parquet")
-      .na.drop()
-      .drop("docno")
+//    val df_sohu = sparkSession
+//      .read
+//      .load("hdfs://172.17.11.180:9000/data/rec_news/news_sohu.parquet")
+//      .na.drop()
+//      .drop("docno")
 //    val df_ten = sparkSession
 //      .read
 //      .load("hdfs://172.17.11.180:9000/data/rec_news/news_ten.parquet")
 //      .na.drop()
 //      .drop("docno")
 
-    df_sohu.show()
-//    df_ten.show()
-
-    val df_sohu2 = df_sohu
-      .withColumn("news_id",DataFrameManager.withId())
-      .withColumn("publish_time",DataFrameManager.withDateTime())
-      .withColumn("category",DataFrameManager.withCategory(df_sohu("url")))
-      .withColumn("comments",DataFrameManager.withDefaultComment())
-      .withColumn("likes",DataFrameManager.withDefaultCount(0)())
-      .withColumn("dislikes",DataFrameManager.withDefaultCount(0)())
-      .withColumn("score",DataFrameManager.withDefaultScore(2.5)())
-      .persist()
-//    df_sohu2.registerTempTable("news")
-//    val selected = sparkSession.sql("SELECT * FROM news")
-    df_sohu2.show()
-//    selected.show(1010)
-    df_sohu2.write.format("parquet").save("hdfs://172.17.11.180:9000/data/rec_news/mergeIntermediate/news_sohu.parquet")
+//    df_sohu.show()
+////    df_ten.show()
+//
+//    val df_sohu2 = df_sohu
+//      .withColumn("news_id",DataFrameManager.withId())
+//      .withColumn("publish_time",DataFrameManager.withDateTime())
+//      .withColumn("category",DataFrameManager.withCategory(df_sohu("url")))
+//      .withColumn("comments",DataFrameManager.withDefaultComment())
+//      .withColumn("likes",DataFrameManager.withDefaultCount(0)())
+//      .withColumn("dislikes",DataFrameManager.withDefaultCount(0)())
+//      .withColumn("score",DataFrameManager.withDefaultScore(2.5)())
+//      .persist()
+////    df_sohu2.registerTempTable("news")
+////    val selected = sparkSession.sql("SELECT * FROM news")
+//    df_sohu2.show()
+////    selected.show(1010)
+//    df_sohu2.write.format("parquet").save("hdfs://172.17.11.180:9000/data/rec_news/mergeIntermediate/news_sohu.parquet")
 
 //    df_sohu.registerTempTable("sohu")
 //    val df = sparkSession.sql("SELECT url FROM sohu ").rdd.map(row => row.getString(0).split('/')(2))
@@ -70,6 +70,15 @@ object SparkSQL {
 //    println("本次程序运行"+(timeEnd1-timeStart)/1000.0+"s.")
 //    val query = sparkSession.sql("SELECT * FROM news_sohu ORDER BY publish_time DESC LIMIT 1000")
 //    query.show(1010)
+
+    val df_news = sparkSession
+      .read
+      .load("hdfs://172.17.11.180:9000/data/rec_news/mergeIntermediate/news_merged.parquet")
+    df_news.printSchema()
+//    df_news.show()
+    df_news.createOrReplaceTempView("news")
+    val query = sparkSession.sql("SELECT content FROM news").limit(20)
+//    val queryList = query.collectAsList().stream().map(r=>r.get)
 
     val timeEnd = System.currentTimeMillis()
     println("本次程序运行"+(timeEnd-timeStart)/1000.0+"s.")

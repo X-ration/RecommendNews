@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -35,14 +36,21 @@ public class NewsServiceSpark extends NewsService{
             return null;
         }
         else {
-            Dataset<Row> dataset = sparkManager.executeQuery("SELECT * FROM " + SparkManager.NEWS_SOHU_TABLE
-                    + " WHERE news_id>=" + startIndex + " AND news_id<" + endIndex);
-            List<News> result = dataset.collectAsList()
+            String sql = "SELECT news_id,contenttitle,content,url,category,publish_time,likes,dislikes,score FROM " + SparkManager.NEWS_SOHU_TABLE
+                    + " WHERE news_id>=" + startIndex + " AND news_id<" + endIndex;
+            Dataset<Row> dataset = sparkManager.executeQuery(sql);
+            List<Row> medium = dataset.collectAsList();
+            System.out.println(medium
+                    .stream()
+                    .map(Row::toString)
+                    .collect(Collectors.joining(","))
+            );
+            List<News> result = medium
             .stream()
-            .map(row -> new News(row.getInt(3),row.getString(1),
-                        row.getString(0),row.getString(2),
-                        identifyCategory(row.getString(2)),
-                        LocalDateTime.parse(row.getString(4), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+            .map(row -> new News(row.getInt(0),row.getString(1),
+                        row.getSeq(2).mkString("\r\n"),row.getString(3),
+                        row.getString(4),
+                        LocalDateTime.parse(row.getString(5), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                         row.getInt(6),row.getInt(7),row.getDouble(8)))
                     .collect(Collectors.toList());
             return result;
