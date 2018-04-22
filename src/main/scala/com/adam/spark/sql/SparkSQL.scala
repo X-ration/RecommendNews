@@ -77,7 +77,8 @@ object SparkSQL {
     df_news.printSchema()
 //    df_news.show()
     df_news.createOrReplaceTempView("news")
-    val query = sparkSession.sql("SELECT content FROM news").limit(20)
+    val query = sparkSession.sql("SELECT category FROM news").distinct()
+    query.show(100);
 //    val queryList = query.collectAsList().stream().map(r=>r.get)
 
     val timeEnd = System.currentTimeMillis()

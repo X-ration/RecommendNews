@@ -41,4 +41,19 @@ object DataFrameManager {
 
   val withEmptyComments = udf(()=>Array[String]())   //以此种方式声明数组时一定要声明类型，否则入坑！
 
+  val transferCategory = udf((category:String)=> category match {
+    case "finance" => "财经"
+    case "news" => "新闻"
+    case "auto" => "汽车"
+    case "ent" => "娱乐"
+    case "edu" => "教育"
+    case "games" => "游戏"
+    case "mil" => "军事"
+    case "sports" => "体育"
+    case "house" => "家居"
+    case "tech" => "科技"
+    case "cj" => "财经"
+    case s:String => s
+  })
+
 }

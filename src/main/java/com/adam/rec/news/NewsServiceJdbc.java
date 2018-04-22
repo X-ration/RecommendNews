@@ -88,6 +88,11 @@ public class NewsServiceJdbc extends NewsService {
     }
 
     @Override
+    List<News> getNewsListByCategoriesAndAmount(List<String> categories, int amountEachCategory) {
+        return null;
+    }
+
+    @Override
     News getNewsById(int newsId) {
         News news = null;
         try {

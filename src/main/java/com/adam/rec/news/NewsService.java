@@ -19,6 +19,7 @@ public abstract class NewsService {
     abstract List<News> getNewsListWindow();
     abstract List<News> getNewsListPage(int page);
     abstract Boolean writeNewsList(List<News> newsList) throws Exception;
+    abstract List<News> getNewsListByCategoriesAndAmount(List<String> categories,int amountEachCategory);
     abstract News getNewsById(int newsId);
 
     /**

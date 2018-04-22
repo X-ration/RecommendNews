@@ -24,8 +24,8 @@ public class NewsController {
         this.newsServiceSpark = newsServiceSpark;
         this.newsServiceJdbc = newsServiceJdbc;
         try {
-            this.newsServiceJdbc.writeNewsList(newsServiceSpark.getNewsListByIdRange(1,1001));  //将使用Spark SQL查询得到的前1000条的写入Oracle数据库
-            System.out.println("写入到数据库完毕！");
+//            this.newsServiceJdbc.writeNewsList(newsServiceSpark.getNewsListByIdRange(1,1001));  //将使用Spark SQL查询得到的前1000条的写入Oracle数据库
+//            System.out.println("写入到数据库完毕！");
         } catch (Exception e) {
             e.printStackTrace();
         }

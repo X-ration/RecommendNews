@@ -19,7 +19,7 @@ public class SparkBeans {
     @Bean
     public SparkSession sparkSession() {
         SparkSession sparkSession = SparkSession.builder()
-                .appName("ApplicationMain")
+                .appName("Rec_News_Web")
                 .master("local[*]")
                 .getOrCreate();
         sparkSession.conf().set("spark.driver.memory","10g");
