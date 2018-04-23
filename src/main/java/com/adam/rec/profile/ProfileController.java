@@ -47,7 +47,7 @@ public class ProfileController {
 
         ModelAndView modelAndView = new ModelAndView("profile/modifyProfile");
         modelAndView.addObject("cities",cityRepository.getCities());
-        modelAndView.addObject("categories",newsCategories.getCategories());
+        modelAndView.addObject("categories",newsCategories.getCategoriesList());
         return modelAndView;
     }
 

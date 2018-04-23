@@ -9,7 +9,7 @@ public abstract class NewsService {
     int windowInterval;
 
     public NewsService(NewsCategories newsCategories, int windowInterval) {
-        this.newsCategories = newsCategories.getCategories();
+        this.newsCategories = newsCategories.getCategoriesMap();
         this.windowInterval = windowInterval;
     }
 

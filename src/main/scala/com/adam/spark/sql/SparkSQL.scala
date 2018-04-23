@@ -73,13 +73,13 @@ object SparkSQL {
 
     val df_news = sparkSession
       .read
-      .load("hdfs://172.17.11.180:9000/data/rec_news/mergeIntermediate/news_merged.parquet")
+      .load("hdfs://172.17.11.180:9000/data/rec_news/mergeIntermediate/news_merged_mergedCategories.parquet")
     df_news.printSchema()
 //    df_news.show()
-    df_news.createOrReplaceTempView("news")
-    val query = sparkSession.sql("SELECT category FROM news").distinct()
-    query.show(100);
-//    val queryList = query.collectAsList().stream().map(r=>r.get)
+//    df_news.createOrReplaceTempView("news")
+//    val query = sparkSession.sql("SELECT category FROM news").distinct()
+//    query.show(100);
+////    val queryList = query.collectAsList().stream().map(r=>r.get)
 
     val timeEnd = System.currentTimeMillis()
     println("本次程序运行"+(timeEnd-timeStart)/1000.0+"s.")

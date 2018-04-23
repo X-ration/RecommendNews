@@ -2,8 +2,7 @@ package com.adam.rec.news;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Adam
@@ -17,29 +16,38 @@ public class NewsCategories {
     /**
      * 存储新闻分类的Map。
      */
-    private static Map<String,String> categories = new HashMap<>();
+    private static Map<String,String> categoriesMap = new HashMap<>();
     static {
-        categories.put("gongyi.sohu.com","公益");
-        categories.put("roll.sohu.com","滚动");
-        categories.put("mil.sohu.com","军事");
-        categories.put("sports.sohu.com","体育");
-        categories.put("cul.sohu.com","文化");
-        categories.put("learning.sohu.com","教育");
-        categories.put("travel.sohu.com","旅游");
-        categories.put("auto.sohu.com","汽车");
-        categories.put("it.sohu.com","科技");
-        categories.put("business.sohu.com","财经");
-        categories.put("yule.sohu.com","娱乐");
-        categories.put("s.sohu.com","体育视频");
+        categoriesMap.put("gongyi.sohu.com","公益");
+        categoriesMap.put("roll.sohu.com","滚动");
+        categoriesMap.put("mil.sohu.com","军事");
+        categoriesMap.put("sports.sohu.com","体育");
+        categoriesMap.put("cul.sohu.com","文化");
+        categoriesMap.put("learning.sohu.com","教育");
+        categoriesMap.put("travel.sohu.com","旅游");
+        categoriesMap.put("auto.sohu.com","汽车");
+        categoriesMap.put("it.sohu.com","科技");
+        categoriesMap.put("business.sohu.com","财经");
+        categoriesMap.put("yule.sohu.com","娱乐");
+        categoriesMap.put("s.sohu.com","体育视频");
+    }
+    /**
+     * 存储新闻分类的List。
+     */
+    private static List<String> categoriesList = new ArrayList<>();
+    static {
+        categoriesList.addAll(Arrays.asList("家居","军事","娱乐","教育","体育","体育视频","财经","科技","公益","滚动","汽车","游戏","新闻","其他"));
     }
 
-    public Map<String,String> getCategories() {
-        return categories;
+    public Map<String,String> getCategoriesMap() {
+        return categoriesMap;
     }
+
+    public List<String> getCategoriesList() { return categoriesList; }
 
     public static String identifyCategory(String url) {
         String splited = url.split("/")[2];
-        return categories.getOrDefault(splited,"其他");
+        return categoriesMap.getOrDefault(splited,"其他");
     }
 
 }

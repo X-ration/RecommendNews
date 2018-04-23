@@ -20,9 +20,10 @@ public class SparkBeans {
     public SparkSession sparkSession() {
         SparkSession sparkSession = SparkSession.builder()
                 .appName("Rec_News_Web")
-                .master("local[*]")
+                .master("spark://172.17.11.181:7077")
+                .config("spark.executor.memory","8g")
                 .getOrCreate();
-        sparkSession.conf().set("spark.driver.memory","10g");
+//        sparkSession.conf().set("spark.executor.memory","3g");
         return sparkSession;
     }
 
@@ -36,7 +37,7 @@ public class SparkBeans {
     @Autowired
     public SparkManager sparkManager(SparkSession sparkSession, SQLContext sqlContext) {
         SparkManager sparkManager = new SparkManager(sparkSession,sqlContext);
-        sparkManager.initTable(SparkManager.NEWS_SOHU_LOCATION,SparkManager.NEWS_SOHU_TABLE);
+        sparkManager.initTable(SparkManager.NEWS_ALL_LOCATION,SparkManager.NEWS_ALL_TABLE);
         return sparkManager;
     }
 

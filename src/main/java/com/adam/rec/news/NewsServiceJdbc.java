@@ -31,7 +31,6 @@ public class NewsServiceJdbc extends NewsService {
     public NewsServiceJdbc(NewsCategories newsCategories,int windowInterval,JdbcUtil jdbcUtil) {
         super(newsCategories,windowInterval);
         this.jdbcUtil = jdbcUtil;
-        //jdbcUtil.initAll();
     }
 
     @Override
@@ -89,7 +88,24 @@ public class NewsServiceJdbc extends NewsService {
 
     @Override
     List<News> getNewsListByCategoriesAndAmount(List<String> categories, int amountEachCategory) {
-        return null;
+        List<News> newsList = null;
+        try {
+            ResultSet resultSet = jdbcUtil.executeQuery("SELECT * FROM news WHERE category='"+categories.stream().collect(Collectors.joining("' or '"))+"'");
+            newsList = new ArrayList<>();
+            while(resultSet.next()) {
+                newsList.add(new News(resultSet.getInt(1),resultSet.getString(2),
+                        resultSet.getString(3),resultSet.getString(4),
+                        resultSet.getString(5), LocalDateTime.parse(resultSet.getString(6),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                        resultSet.getInt(7),resultSet.getInt(8),resultSet.getDouble(9)
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            System.out.println("查询为空");
+        }
+        return newsList;
     }
 
     @Override

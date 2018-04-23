@@ -47,7 +47,7 @@ public class UserController {
     public ModelAndView signup() {
         ModelAndView modelAndView = new ModelAndView("signup/signup");
         modelAndView.addObject("cities",cityRepository.getCities());
-        modelAndView.addObject("categories",newsCategories.getCategories());
+        modelAndView.addObject("categories",newsCategories.getCategoriesList());
         return modelAndView;
     }
 

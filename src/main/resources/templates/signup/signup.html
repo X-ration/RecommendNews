@@ -87,7 +87,7 @@
                 <div class="input-field col s12">
                     <i class="material-icons prefix">stars</i>
                     <select id="interestsSelects" multiple="multiple">
-                        <option th:each="cat:${categories}" th:value="${cat.value}" th:text="${cat.value}"></option>
+                        <option th:each="cat:${categories}" th:value="${cat}" th:text="${cat}"></option>
                     </select>
                     <label>兴趣标签</label>
                     <input id="interests" th:field="${userForm.interests}" type="text" value="" hidden="hidden"/>
