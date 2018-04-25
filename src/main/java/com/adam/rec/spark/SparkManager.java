@@ -20,8 +20,10 @@ public class SparkManager {
 
     public static final String NEWS_SOHU_LOCATION = "hdfs://172.17.11.181:9000/data/rec_news/mergeIntermediate/news_sohu.parquet";
     public static final String NEWS_SOHU_TABLE = "news_sohu";
-    public static final String NEWS_ALL_LOCATION = "hdfs://172.17.11.181:9000/data/rec_news/mergeIntermediate/news_merged.parquet";
+    public static final String NEWS_ALL_LOCATION = "hdfs://172.17.11.181:9000/data/rec_news/mergeIntermediate/news_merged_ultimate.parquet";
     public static final String NEWS_ALL_TABLE = "news_all";
+    public static final String NEWS_ORIGINAL_LOCATION = "hdfs://172.17.11.181:9000/data/rec_news/build/original/news_original.parquet";
+    public static final String NEWS_ORIGINAL_TABLE = "news_original";
 
     public SparkManager(SparkSession sparkSession, SQLContext sqlContext) {
         this.sparkSession = sparkSession;

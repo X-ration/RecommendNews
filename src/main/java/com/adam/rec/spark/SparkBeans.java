@@ -37,7 +37,7 @@ public class SparkBeans {
     @Autowired
     public SparkManager sparkManager(SparkSession sparkSession, SQLContext sqlContext) {
         SparkManager sparkManager = new SparkManager(sparkSession,sqlContext);
-        sparkManager.initTable(SparkManager.NEWS_ALL_LOCATION,SparkManager.NEWS_ALL_TABLE);
+        sparkManager.initTable(SparkManager.NEWS_ORIGINAL_LOCATION,SparkManager.NEWS_ORIGINAL_TABLE);
         return sparkManager;
     }
 

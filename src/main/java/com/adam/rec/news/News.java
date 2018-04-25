@@ -25,7 +25,7 @@ public class News {
     public News(int id, String title, String content, String url, String category, LocalDateTime publish_time, int likes, int dislikes, double score) {
         this.id = id;
         this.title = title;
-        this.content = content;
+        this.content = (content==null||content.equals(""))?" ":content;
         this.url = url;
         this.category = category;
         this.publish_time = publish_time;

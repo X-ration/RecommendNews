@@ -88,9 +88,10 @@ public class NewsServiceSpark extends NewsService{
 //                datasets = datasets.union(dataset);
 //            }
             for(String category:categories) {
-                String sql = "SELECT news_id,contenttitle,content,url,category,publish_time,likes,dislikes,score FROM " + SparkManager.NEWS_ALL_TABLE
-                    + " WHERE category='"+category+"' LIMIT " + amountEachCategory;
-                result.addAll(sparkManager.executeQuery(sql).persist().collectAsList()
+                String sql = "SELECT news_id,contenttitle,content,url,category,publish_time,likes,dislikes,score FROM " + SparkManager.NEWS_ORIGINAL_TABLE
+                    + " WHERE category='"+category+"'";
+                Dataset<Row> dataset = sparkManager.executeQuery(sql).limit(amountEachCategory).persist();
+                result.addAll(dataset.collectAsList()
                         .stream()
                         .map(row -> new News(row.getInt(0),row.getString(1),
                                 row.getSeq(2).mkString("\r\n"),row.getString(3),

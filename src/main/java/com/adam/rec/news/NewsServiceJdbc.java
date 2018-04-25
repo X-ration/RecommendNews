@@ -90,7 +90,8 @@ public class NewsServiceJdbc extends NewsService {
     List<News> getNewsListByCategoriesAndAmount(List<String> categories, int amountEachCategory) {
         List<News> newsList = null;
         try {
-            ResultSet resultSet = jdbcUtil.executeQuery("SELECT * FROM news WHERE category='"+categories.stream().collect(Collectors.joining("' or '"))+"'");
+            String sql = "SELECT * FROM news WHERE category='"+categories.stream().collect(Collectors.joining("' or '"))+"'";
+            ResultSet resultSet = jdbcUtil.executeQuery(sql);
             newsList = new ArrayList<>();
             while(resultSet.next()) {
                 newsList.add(new News(resultSet.getInt(1),resultSet.getString(2),

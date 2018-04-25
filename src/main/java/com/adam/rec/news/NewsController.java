@@ -27,7 +27,7 @@ public class NewsController {
         this.newsCategories = newsCategories;
         try {
             this.newsServiceJdbc.writeNewsList(newsServiceSpark.getNewsListByCategoriesAndAmount(newsCategories.getCategoriesList(),100));  //将使用Spark SQL查询得到的前1000条的写入Oracle数据库
-//            this.newsServiceJdbc.writeNewsList(newsServiceSpark.getNewsListByIdRange(1,1001));
+//            this.                  .writeNewsList(newsServiceSpark.getNewsListByIdRange(1,1001));
             System.out.println("写入到数据库完毕！");
         } catch (Exception e) {
             e.printStackTrace();
