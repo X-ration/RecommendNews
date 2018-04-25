@@ -3,6 +3,7 @@ package com.adam.rec.news;
 import com.adam.rec.jdbc.JdbcUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.sql.PreparedStatement;
@@ -28,7 +29,7 @@ public class NewsServiceJdbc extends NewsService {
     private static final String tableName = "emp";
 
     @Autowired
-    public NewsServiceJdbc(NewsCategories newsCategories,int windowInterval,JdbcUtil jdbcUtil) {
+    public NewsServiceJdbc(NewsCategories newsCategories, @Qualifier("windowInterval") int windowInterval, JdbcUtil jdbcUtil) {
         super(newsCategories,windowInterval);
         this.jdbcUtil = jdbcUtil;
     }
@@ -64,7 +65,7 @@ public class NewsServiceJdbc extends NewsService {
 
     @Override
     List<News> getNewsListPage(int page) {
-        return getNewsListByIdRange(10*page-9,10*page+1);
+        return getNewsListByIndexRange(10*page-9,10*page+1);
     }
 
     @Override
@@ -129,4 +130,29 @@ public class NewsServiceJdbc extends NewsService {
         }
         return news;
     }
+
+    @Override
+    List<News> getNewsListByIndexRange(int startIndex, int endIndex) {
+        List<News> newsList = null;
+        try {
+            //select news_id,i from (select news_id,rownum i from news where rownum<20) where i>=5;
+            String sql = "SELECT news_id,news_title,content,url,category,publish_time,likes,dislikes,score FROM (SELECT news_id,news_title,content,url,category,publish_time,likes,dislikes,score,ROWNUM i FROM news WHERE ROWNUM<"+endIndex+") WHERE i>="+startIndex;
+            ResultSet resultSet = jdbcUtil.executeQuery(sql);
+            newsList = new ArrayList<>();
+            while(resultSet.next()) {
+                newsList.add(new News(resultSet.getInt(1),resultSet.getString(2),
+                        resultSet.getString(3),resultSet.getString(4),
+                        resultSet.getString(5), LocalDateTime.parse(resultSet.getString(6),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                        resultSet.getInt(7),resultSet.getInt(8),resultSet.getDouble(9)
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            System.out.println("查询为空");
+        }
+        return newsList;
+    }
+
 }

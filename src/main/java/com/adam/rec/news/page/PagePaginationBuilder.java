@@ -1,5 +1,7 @@
 package com.adam.rec.news.page;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,10 +13,11 @@ public class PagePaginationBuilder {
 
     private PagePagination pagePagination;
     private int currentPage;
-    public static final int maxPage = 100;
+    private int maxPage;
 
-    public PagePaginationBuilder(int currentPage) {
+    public PagePaginationBuilder(int currentPage,int maxPage) {
         this.currentPage = currentPage;
+        this.maxPage = maxPage;
     }
 
     public PagePagination build() {

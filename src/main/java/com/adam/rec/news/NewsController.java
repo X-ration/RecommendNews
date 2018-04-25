@@ -3,6 +3,7 @@ package com.adam.rec.news;
 import com.adam.rec.news.page.PagePaginationBuilder;
 import com.adam.rec.user_news.EvaluationForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,14 +20,16 @@ public class NewsController {
     private NewsService newsServiceSpark;
     private NewsService newsServiceJdbc;
     private NewsCategories newsCategories;
+    private int maxPage;
 
     @Autowired
-    public NewsController(NewsService newsServiceSpark, NewsService newsServiceJdbc, NewsCategories newsCategories) {
+    public NewsController(NewsService newsServiceSpark, NewsService newsServiceJdbc, NewsCategories newsCategories, @Qualifier("maxPage") int maxPage) {
         this.newsServiceSpark = newsServiceSpark;
         this.newsServiceJdbc = newsServiceJdbc;
         this.newsCategories = newsCategories;
+        this.maxPage = maxPage;
         try {
-            this.newsServiceJdbc.writeNewsList(newsServiceSpark.getNewsListByCategoriesAndAmount(newsCategories.getCategoriesList(),100));  //将使用Spark SQL查询得到的前1000条的写入Oracle数据库
+//            this.newsServiceJdbc.writeNewsList(newsServiceSpark.getNewsListByCategoriesAndAmount(newsCategories.getCategoriesList(),100));  //将使用Spark SQL查询得到的前1000条的写入Oracle数据库
 //            this.                  .writeNewsList(newsServiceSpark.getNewsListByIdRange(1,1001));
             System.out.println("写入到数据库完毕！");
         } catch (Exception e) {
@@ -43,8 +46,8 @@ public class NewsController {
         ModelAndView modelAndView = new ModelAndView("news/viewNewsList");
         modelAndView.addObject("newsList",newsServiceJdbc.getNewsListPage(page));
         modelAndView.addObject("curPage",page);
-        modelAndView.addObject("pagination",new PagePaginationBuilder(page).build());
-        modelAndView.addObject("maxPage",PagePaginationBuilder.maxPage);
+        modelAndView.addObject("pagination",new PagePaginationBuilder(page,maxPage).build());
+        modelAndView.addObject("maxPage",maxPage);
         return modelAndView;
     }
 

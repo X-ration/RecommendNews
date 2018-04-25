@@ -4,6 +4,7 @@ import com.adam.rec.spark.SparkManager;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,7 +24,7 @@ public class NewsServiceSpark extends NewsService{
     private SparkManager sparkManager;
 
     @Autowired
-    public NewsServiceSpark(NewsCategories newsCategories,int windowInterval,SparkManager sparkManager){
+    public NewsServiceSpark(NewsCategories newsCategories, @Qualifier("windowInterval") int windowInterval, SparkManager sparkManager){
         super(newsCategories,windowInterval);
         this.sparkManager = sparkManager;
     }
@@ -114,6 +115,11 @@ public class NewsServiceSpark extends NewsService{
 
     @Override
     News getNewsById(int newsId) {
+        return null;
+    }
+
+    @Override
+    List<News> getNewsListByIndexRange(int startIndex, int endIndex) {
         return null;
     }
 

@@ -21,6 +21,7 @@ public abstract class NewsService {
     abstract Boolean writeNewsList(List<News> newsList) throws Exception;
     abstract List<News> getNewsListByCategoriesAndAmount(List<String> categories,int amountEachCategory);
     abstract News getNewsById(int newsId);
+    abstract List<News> getNewsListByIndexRange(int startIndex,int endIndex);
 
     /**
      * 根据URL地址，识别新闻分类。
