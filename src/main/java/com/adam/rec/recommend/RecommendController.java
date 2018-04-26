@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -31,7 +32,7 @@ public class RecommendController {
     }
 
     @RequestMapping("/recommend")
-    public ModelAndView recommend(RedirectAttributes redirectAttributes) {
+    public ModelAndView recommend(@RequestParam(defaultValue = "1") int page) {
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication()
@@ -39,7 +40,7 @@ public class RecommendController {
         User user = userServiceJdbc.getUserByName(userDetails.getUsername());
 
         ModelAndView modelAndView = new ModelAndView("recommend/recommend");
-        modelAndView.addObject(recommendServiceJdbc.getNewsListFiltered(user.getInterests()));
+        modelAndView.addObject(recommendServiceJdbc.getNewsListFilteredPage(user.getInterests(),page));
         return modelAndView;
     }
 

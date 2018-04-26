@@ -136,7 +136,13 @@ public class NewsServiceJdbc extends NewsService {
         List<News> newsList = null;
         try {
             //select news_id,i from (select news_id,rownum i from news where rownum<20) where i>=5;
-            String sql = "SELECT news_id,news_title,content,url,category,publish_time,likes,dislikes,score FROM (SELECT news_id,news_title,content,url,category,publish_time,likes,dislikes,score,ROWNUM i FROM news WHERE ROWNUM<"+endIndex+") WHERE i>="+startIndex;
+            String sql =
+                    "SELECT news_id,news_title,content,url,category,publish_time,likes,dislikes,score " +
+                    "FROM " +
+                            "(SELECT news_id,news_title,content,url,category,publish_time,likes,dislikes,score,ROWNUM i " +
+                            "FROM news " +
+                            "WHERE ROWNUM<"+endIndex+") " +
+                    "WHERE i>="+startIndex;
             ResultSet resultSet = jdbcUtil.executeQuery(sql);
             newsList = new ArrayList<>();
             while(resultSet.next()) {

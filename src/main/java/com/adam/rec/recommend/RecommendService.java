@@ -12,5 +12,7 @@ import java.util.List;
 public abstract class RecommendService {
 
     public abstract List<News> getNewsListFiltered(List<String> categories);
+    public abstract List<News> getNewsListFilteredIndexRange(List<String> categories,int startIndex,int endIndex);
+    public abstract List<News> getNewsListFilteredPage(List<String> categories,int page);
 
 }
