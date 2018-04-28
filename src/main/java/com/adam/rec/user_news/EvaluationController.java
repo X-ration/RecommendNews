@@ -19,9 +19,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class EvaluationController {
 
     private UserService userServiceJdbc;
+    private UserNewsService userNewsServiceJdbc;
     @Autowired
-    public EvaluationController(UserServiceJdbc userServiceJdbc) {
+    public EvaluationController(UserServiceJdbc userServiceJdbc,UserNewsService userNewsServiceJdbc) {
         this.userServiceJdbc = userServiceJdbc;
+        this.userNewsServiceJdbc = userNewsServiceJdbc;
     }
 
     @RequestMapping(value = "/viewNews/{newsId}/evaluation", params = "submitEvaluation", method = RequestMethod.POST)
@@ -35,6 +37,7 @@ public class EvaluationController {
                     .getPrincipal();
             int userId = userServiceJdbc.getUserIdByName(userDetails.getUsername());
             Evaluation evaluation = EvaluationUtil.buildEvaluation(evaluationForm,userId,newsId);
+            userNewsServiceJdbc.writeEvaluation(evaluation);
             System.out.println(evaluation);
         }
         return "redirect:/viewNews/"+newsId;

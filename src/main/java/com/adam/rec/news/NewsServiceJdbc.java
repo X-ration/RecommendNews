@@ -38,7 +38,7 @@ public class NewsServiceJdbc extends NewsService {
     List<News> getNewsListByIdRange(int startIndex, int endIndex){
         List<News> newsList = null;
         try {
-            ResultSet resultSet = jdbcUtil.executeQuery("SELECT * FROM news WHERE news_id>=" + startIndex + " AND news_id<" + endIndex);
+            ResultSet resultSet = jdbcUtil.executeQuery("SELECT * FROM REC_NEWS WHERE news_id>=" + startIndex + " AND news_id<" + endIndex);
             newsList = new ArrayList<>();
             while(resultSet.next()) {
                 newsList.add(new News(resultSet.getInt(1),resultSet.getString(2),
@@ -70,7 +70,7 @@ public class NewsServiceJdbc extends NewsService {
 
     @Override
     Boolean writeNewsList(List<News> newsList) throws Exception {
-        PreparedStatement preparedStatement = jdbcUtil.createPreparedStatement("INSERT INTO news values(?,?,?,?,?,?,?,?,?)");
+        PreparedStatement preparedStatement = jdbcUtil.createPreparedStatement("INSERT INTO REC_NEWS values(?,?,?,?,?,?,?,?,?)");
         for(News news:newsList) {
             preparedStatement.setInt(1,news.getId());
             preparedStatement.setString(2,news.getTitle());
@@ -91,7 +91,7 @@ public class NewsServiceJdbc extends NewsService {
     List<News> getNewsListByCategoriesAndAmount(List<String> categories, int amountEachCategory) {
         List<News> newsList = null;
         try {
-            String sql = "SELECT * FROM news WHERE category='"+categories.stream().collect(Collectors.joining("' or '"))+"'";
+            String sql = "SELECT * FROM REC_NEWS WHERE category='"+categories.stream().collect(Collectors.joining("' or '"))+"'";
             ResultSet resultSet = jdbcUtil.executeQuery(sql);
             newsList = new ArrayList<>();
             while(resultSet.next()) {
@@ -114,7 +114,7 @@ public class NewsServiceJdbc extends NewsService {
     News getNewsById(int newsId) {
         News news = null;
         try {
-            ResultSet resultSet = jdbcUtil.executeQuery("SELECT * FROM news WHERE news_id=" + newsId);
+            ResultSet resultSet = jdbcUtil.executeQuery("SELECT * FROM REC_NEWS WHERE news_id=" + newsId);
             if (resultSet.next()) {
                 news = new News(resultSet.getInt(1),resultSet.getString(2),
                         resultSet.getString(3),resultSet.getString(4),
@@ -140,7 +140,7 @@ public class NewsServiceJdbc extends NewsService {
                     "SELECT news_id,news_title,content,url,category,publish_time,likes,dislikes,score " +
                     "FROM " +
                             "(SELECT news_id,news_title,content,url,category,publish_time,likes,dislikes,score,ROWNUM i " +
-                            "FROM news " +
+                            "FROM REC_NEWS " +
                             "WHERE ROWNUM<"+endIndex+") " +
                     "WHERE i>="+startIndex;
             ResultSet resultSet = jdbcUtil.executeQuery(sql);

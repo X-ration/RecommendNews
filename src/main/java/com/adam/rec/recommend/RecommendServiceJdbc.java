@@ -31,7 +31,7 @@ public class RecommendServiceJdbc extends RecommendService {
     public List<News> getNewsListFiltered(List<String> categories) {
         List<News> newsListFiltered = new ArrayList<>();
 //        "SELECT * FROM news WHERE category='afds' or category='fads' or category='fsda'";
-        String sql = "SELECT * FROM news WHERE category='" + categories.stream().collect(Collectors.joining("' or category='")) + "'";
+        String sql = "SELECT * FROM REC_NEWS WHERE category='" + categories.stream().collect(Collectors.joining("' or category='")) + "'";
 
         try{
             ResultSet resultSet = jdbcUtil.executeQuery(sql);
@@ -57,7 +57,7 @@ public class RecommendServiceJdbc extends RecommendService {
                     "SELECT news_id,news_title,content,url,category,publish_time,likes,dislikes,score " +
                             "FROM " +
                             "(SELECT news_id,news_title,content,url,category,publish_time,likes,dislikes,score,ROWNUM i " +
-                            "FROM news " +
+                            "FROM REC_NEWS " +
                             "WHERE ROWNUM<"+endIndex+" AND (category='" + categories.stream().collect(Collectors.joining("' OR category='"))+"')) " +
                             "WHERE i>="+startIndex ;
             ResultSet resultSet = jdbcUtil.executeQuery(sql);

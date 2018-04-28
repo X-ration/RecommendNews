@@ -46,7 +46,7 @@ public class NewsBeans {
     public int getMaxPage() {
         int allSize = -1;
         try {
-            String sql = "SELECT COUNT(*) FROM news";
+            String sql = "SELECT COUNT(*) FROM REC_NEWS";
             ResultSet resultSet = jdbcUtil.executeQuery(sql);
             if(resultSet.next()) {
                 allSize = resultSet.getInt(1);
