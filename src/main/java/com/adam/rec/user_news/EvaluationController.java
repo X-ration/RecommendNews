@@ -37,7 +37,7 @@ public class EvaluationController {
                     .getPrincipal();
             int userId = userServiceJdbc.getUserIdByName(userDetails.getUsername());
             Evaluation evaluation = EvaluationUtil.buildEvaluation(evaluationForm,userId,newsId);
-            userNewsServiceJdbc.writeEvaluation(evaluation);
+            userNewsServiceJdbc.saveEvaluation(evaluation);
             System.out.println(evaluation);
         }
         return "redirect:/viewNews/"+newsId;

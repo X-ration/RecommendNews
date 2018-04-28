@@ -6,6 +6,8 @@ package com.adam.rec.user_news;
  */
 public abstract class UserNewsService {
 
+    public abstract Boolean saveEvaluation(Evaluation evaluation);
     public abstract Boolean writeEvaluation(Evaluation evaluation);
+    public abstract Boolean updateEvaluation(Evaluation evaluation);
 
 }
