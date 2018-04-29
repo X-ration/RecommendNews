@@ -1,4 +1,4 @@
-package com.adam.rec.news.page;
+package com.adam.rec.page;
 
 import org.apache.catalina.LifecycleState;
 

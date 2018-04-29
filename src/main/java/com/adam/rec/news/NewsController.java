@@ -1,6 +1,6 @@
 package com.adam.rec.news;
 
-import com.adam.rec.news.page.PagePaginationBuilder;
+import com.adam.rec.page.PagePaginationBuilder;
 import com.adam.rec.user_news.EvaluationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

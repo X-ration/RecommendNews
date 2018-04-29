@@ -1,6 +1,7 @@
 package com.adam.rec.news;
 
 import com.adam.rec.jdbc.JdbcUtil;
+import com.adam.rec.user_news.Evaluation;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -159,6 +160,48 @@ public class NewsServiceJdbc extends NewsService {
             System.out.println("查询为空");
         }
         return newsList;
+    }
+
+    @Override
+    public Boolean receiveEvaluation(Evaluation evaluation, double prevPersonalScore,int prevPersonalEvaluation, Boolean hasPrevPresonalScore) {
+        int likes = evaluation.getLike()?1:0;
+        int dislikes = evaluation.getDislike()?1:0;
+        double score = evaluation.getScore();
+        int news_id = evaluation.getNewsId();
+
+        String sql = "SELECT likes,dislikes,score FROM REC_NEWS WHERE news_id="+news_id;
+        try {
+            ResultSet resultSet = jdbcUtil.executeQuery(sql);
+            resultSet.next();
+            int prevLikes = resultSet.getInt("likes");
+            int prevDislikes = resultSet.getInt("dislikes");
+            double prevScore = resultSet.getDouble("score");
+
+            int curLikes,curDislikes;
+            double curScore;
+
+            if(hasPrevPresonalScore) {
+                curLikes = prevLikes - ((prevPersonalEvaluation == 1)?1:0) + likes;
+                curDislikes = prevDislikes - ((prevPersonalEvaluation == -1)?1:0) + dislikes;
+                curScore = (prevScore * (prevLikes + prevDislikes) - prevPersonalScore + score) / (curLikes + curDislikes);
+            } else {
+                curLikes = prevLikes + likes;
+                curDislikes = prevDislikes + dislikes;
+                curScore = (prevScore * (prevDislikes + prevLikes) + score) / (prevDislikes + prevLikes + 1);
+            }
+
+            String updateSql = "UPDATE REC_NEWS SET likes=" + curLikes
+                    + ",dislikes=" + curDislikes
+                    + ",score=" + curScore
+                    + " WHERE news_id=" + news_id;
+
+            int result = jdbcUtil.executeUpdate(updateSql);
+            return result >= 0 || result == Statement.SUCCESS_NO_INFO;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

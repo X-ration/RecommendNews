@@ -59,19 +59,54 @@ public class UserNewsServiceJdbc extends UserNewsService {
     }
 
     @Override
-    public Boolean saveEvaluation(Evaluation evaluation) {
+    public Boolean writeOrUpdate(Evaluation evaluation) {
         String sql = "SELECT * FROM REC_USER_NEWS WHERE NEWS_ID="+evaluation.getNewsId()
                 +" AND USER_ID="+evaluation.getUserId();
         try {
             ResultSet resultSet = jdbcUtil.executeQuery(sql);
-            if (!resultSet.next()) {
-                return writeEvaluation(evaluation);
-            } else {
-                return updateEvaluation(evaluation);
-            }
+            return !resultSet.next();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public double getPrevScore(int user_id, int news_id) {
+        double score = -10.0;
+        String sql = "SELECT score FROM REC_USER_NEWS WHERE user_id=" + user_id + " AND news_id=" + news_id;
+        try {
+            ResultSet resultSet = jdbcUtil.executeQuery(sql);
+            if(resultSet.next()) {
+                score = resultSet.getDouble("score");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return score;
+    }
+
+    @Override
+    public int getPrevEvaluation(int user_id, int news_id) {
+        int prevEvaluation = -2;
+        String sql = "SELECT evaluation FROM REC_USER_NEWS WHERE user_id=" + user_id + " AND news_id=" + news_id;
+        try {
+            ResultSet resultSet = jdbcUtil.executeQuery(sql);
+            if(resultSet.next()) {
+                prevEvaluation = resultSet.getInt("evaluation");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return prevEvaluation;
+    }
+
+    @Override
+    public Boolean saveEvaluation(Evaluation evaluation) {
+        if(writeOrUpdate(evaluation)) {
+            return writeEvaluation(evaluation);
+        } else {
+            return updateEvaluation(evaluation);
+        }
     }
 }

@@ -1,6 +1,4 @@
-package com.adam.rec.news.page;
-
-import org.springframework.beans.factory.annotation.Autowired;
+package com.adam.rec.page;
 
 import java.util.Arrays;
 import java.util.List;

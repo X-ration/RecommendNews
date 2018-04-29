@@ -1,5 +1,7 @@
 package com.adam.rec.news;
 
+import com.adam.rec.user_news.Evaluation;
+
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +24,7 @@ public abstract class NewsService {
     abstract List<News> getNewsListByCategoriesAndAmount(List<String> categories,int amountEachCategory);
     abstract News getNewsById(int newsId);
     abstract List<News> getNewsListByIndexRange(int startIndex,int endIndex);
+    public abstract Boolean receiveEvaluation(Evaluation evaluation,double prevPersonalScore,int prevPersonalEvaluation,Boolean hasPrevPersonal);
 
     /**
      * 根据URL地址，识别新闻分类。

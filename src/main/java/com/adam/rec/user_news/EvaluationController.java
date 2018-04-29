@@ -1,5 +1,7 @@
 package com.adam.rec.user_news;
 
+import com.adam.rec.news.NewsService;
+import com.adam.rec.news.NewsServiceJdbc;
 import com.adam.rec.user.UserService;
 import com.adam.rec.user.UserServiceJdbc;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +22,13 @@ public class EvaluationController {
 
     private UserService userServiceJdbc;
     private UserNewsService userNewsServiceJdbc;
+    private NewsService newsServiceJdbc;
+
     @Autowired
-    public EvaluationController(UserServiceJdbc userServiceJdbc,UserNewsService userNewsServiceJdbc) {
+    public EvaluationController(UserServiceJdbc userServiceJdbc, UserNewsService userNewsServiceJdbc, NewsService newsServiceJdbc) {
         this.userServiceJdbc = userServiceJdbc;
         this.userNewsServiceJdbc = userNewsServiceJdbc;
+        this.newsServiceJdbc = newsServiceJdbc;
     }
 
     @RequestMapping(value = "/viewNews/{newsId}/evaluation", params = "submitEvaluation", method = RequestMethod.POST)
@@ -37,7 +42,13 @@ public class EvaluationController {
                     .getPrincipal();
             int userId = userServiceJdbc.getUserIdByName(userDetails.getUsername());
             Evaluation evaluation = EvaluationUtil.buildEvaluation(evaluationForm,userId,newsId);
+
+            newsServiceJdbc.receiveEvaluation(evaluation,
+                    userNewsServiceJdbc.getPrevScore(evaluation.getUserId(),evaluation.getNewsId()),
+                    userNewsServiceJdbc.getPrevEvaluation(evaluation.getUserId(),evaluation.getNewsId()),
+                    !userNewsServiceJdbc.writeOrUpdate(evaluation));
             userNewsServiceJdbc.saveEvaluation(evaluation);
+
             System.out.println(evaluation);
         }
         return "redirect:/viewNews/"+newsId;

@@ -1,6 +1,7 @@
 package com.adam.rec.news;
 
 import com.adam.rec.spark.SparkManager;
+import com.adam.rec.user_news.Evaluation;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,6 +121,11 @@ public class NewsServiceSpark extends NewsService{
 
     @Override
     List<News> getNewsListByIndexRange(int startIndex, int endIndex) {
+        return null;
+    }
+
+    @Override
+    public Boolean receiveEvaluation(Evaluation evaluation, double prevPersonalScore, int prevPersonalEvaluation, Boolean hasPrevPersonal) {
         return null;
     }
 
